@@ -1,0 +1,93 @@
+name: netease_cloud_music_flutter
+description: A Flutter project about netease-cloud-music，just for study .
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.6 <4.0.0'
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,x
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+
+  #网络请求的接口依赖
+  dio: ^4.0.4
+
+  #GetX状态管理框架 https://pub.flutter-io.cn/packages/get
+  get: ^4.6.1
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
+  flutter_svg: ^2.0.9
+  #日志
+  logger: ^2.0.2+1
+  #消息框
+  fluttertoast: ^8.2.4
+  #事件总线--EventBus
+  event_bus: ^2.0.0
+  #屏幕适配
+  flutter_screenutil: ^5.0.0
+  pretty_dio_logger: ^1.2.0-beta-1
+  #调用分享平台 https://pub.flutter-io.cn/packages/share
+  share: ^2.0.4
+  ##shared_preferences应用场景,主要用于持久化数据，如持久化用户信息、列表数据等。
+  #因为用户信息基本是不改变的，而在一个应用程序中常常会有多个页面需要展示用户信息，我们不可能每次都去获取接口，那么本地持久化就会变得很方便。
+  #为了给用户更好的体验，在获取列表数据时我们常常会先展示旧数据，带给用户更好的体验，不至于一打开页面就是空白的，当我们采用持久化列表数据后，可以直接先展示本地数据，当网络数据请求回来后在进行数据更新。
+  shared_preferences: ^2.2.2
+  json_annotation: '>=4.8.1 <4.9.0'
+  #网络请求框架
+  retrofit: '>=3.0.0 <4.0.0'
+  flutter_lints: ^1.0.0
+  retrofit_generator: any
+  #上拉刷新、下拉加载
+  pull_to_refresh: ^2.0.0
+  #  轮播
+  card_swiper: ^1.0.4
+
+
+dev_dependencies:
+    build_runner: any
+    json_serializable: ^6.7.1
+    analyzer: '>=5.12.0 <7.0.0' 
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # 添加图片资源文件夹
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/icons/button_icon/
+    - assets/images/loading/
+
+
