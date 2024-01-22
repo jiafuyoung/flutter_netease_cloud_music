@@ -4,7 +4,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:netease_cloud_music_flutter/page/login/login_page.dart';
 // import 'package:netease_cloud_music_flutter/page/login/login_page.dart';
-import 'package:netease_cloud_music_flutter/pageWidget/common_stateful_widget.dart';
+import 'package:netease_cloud_music_flutter/widget/pageWidget/common_stateful_widget.dart';
 import 'package:netease_cloud_music_flutter/route/routes.dart';
 import 'package:netease_cloud_music_flutter/utils/injection.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';

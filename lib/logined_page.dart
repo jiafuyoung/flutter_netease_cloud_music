@@ -6,7 +6,7 @@ import 'page/mine/mine_page.dart';
 import 'package:netease_cloud_music_flutter/res/colors.dart';
 import 'package:netease_cloud_music_flutter/utils/log_utils.dart';
 import './component/keep_alive_wrapper.dart';
-import './pageWidget/base_stateful_widget.dart';
+import 'widget/pageWidget/base_stateful_widget.dart';
 import 'controller/base_controller.dart';
 import 'page/find/find_page.dart';
 
@@ -68,6 +68,11 @@ class LoginedController<T> extends BaseController<ApiSer> {
     logD("登录完成页初始化");
     super.onReady();
     showSuccess();
+  }
+
+  @override
+  void onHidden() {
+    // TODO: implement onHidden
   }
 }
 

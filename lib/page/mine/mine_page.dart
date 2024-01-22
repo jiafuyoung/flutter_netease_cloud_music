@@ -3,7 +3,7 @@ import "package:get/get.dart";
 import "package:netease_cloud_music_flutter/controller/base_controller.dart";
 import 'package:netease_cloud_music_flutter/http/api/api_ser.dart';
 import "package:netease_cloud_music_flutter/page/mine/model/person_info.dart";
-import "package:netease_cloud_music_flutter/pageWidget/base_stateful_widget.dart";
+import 'package:netease_cloud_music_flutter/widget/pageWidget/base_stateful_widget.dart';
 import "package:netease_cloud_music_flutter/utils/log_utils.dart";
 
 class MinePage extends BaseStatefulWidget<MineController> {

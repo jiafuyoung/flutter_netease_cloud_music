@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import 'package:netease_cloud_music_flutter/http/api/api_ser.dart';
-import 'package:netease_cloud_music_flutter/pageWidget/base_stateful_widget.dart';
+import 'package:netease_cloud_music_flutter/widget/pageWidget/base_stateful_widget.dart';
 
 import '../../controller/base_controller.dart';
 import '../../utils/log_utils.dart';

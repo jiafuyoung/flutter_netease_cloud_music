@@ -3,7 +3,7 @@ import "package:get/get.dart";
 import 'package:netease_cloud_music_flutter/http/api/api_ser.dart';
 
 import '../../controller/base_controller.dart';
-import '../../pageWidget/base_stateful_widget.dart';
+import '../../widget/pageWidget/base_stateful_widget.dart';
 import '../../utils/log_utils.dart';
 
 class FollowPage extends BaseStatefulWidget<FollowController> {

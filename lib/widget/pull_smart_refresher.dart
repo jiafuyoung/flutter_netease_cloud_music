@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:open_eye/base/controller/base_refresh_controller.dart';
-import 'package:open_eye/res/colors.dart';
+import '../controller/base_refresh_controller.dart';
+import '../res/colors.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'behavior/over_scroll_behavior.dart';

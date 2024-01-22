@@ -1,10 +1,7 @@
-
-
 import 'package:flutter/cupertino.dart';
 
 /// @description :软键盘相关工具类
 class KeyboardUtils{
-
 
   ///隐藏软键盘
   ///[context] 上下文

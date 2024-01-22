@@ -1,11 +1,18 @@
 import 'dart:async';
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
-import 'package:open_eye/res/colors.dart';
-import 'package:open_eye/widget/fijkplayer_skin/slider.dart'
+import '../../res/colors.dart';
+/*
+部分导入
+  如果只需要导入库的一部分，有两种模式：
+     模式一：只导入需要的部分，使用show关键字，如下例子所示：
+      import 'package:lib1/lib1.dart' show foo;
+     模式二：隐藏不需要的部分，使用hide关键字，如下例子所示：
+      import 'package:lib2/lib2.dart' hide foo;      
+*/
+import '../../widget/fijkplayer_skin/slider.dart'
     show NewFijkSliderColors, NewFijkSlider;
 import 'package:wakelock/wakelock.dart';
 
@@ -1145,7 +1152,9 @@ class BuildGestureDetectorState extends State<BuildGestureDetector> {
               child: Text(
                 mapKey + " X",
                 style: TextStyle(
-                  color: _speed == speedVals ? ColorStyle.color_EA4C43 : Colors.white,
+                  color: _speed == speedVals
+                      ? ColorStyle.color_EA4C43
+                      : Colors.white,
                   fontSize: 16,
                 ),
               ),

@@ -1,11 +1,7 @@
 import 'package:logger/logger.dart';
 
 //日志工具类
-var _logger = Logger(
-    // printer: PrettyPrinter(
-    //   methodCount: 0,
-    // ),
-    );
+var _logger = Logger();
 
 logV(String msg) {
   _logger.t(msg);

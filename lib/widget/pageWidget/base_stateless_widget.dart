@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controller/base_controller.dart';
-import '../mixin/toast/toast_mixin.dart';
-import '../widget/load_state_widget.dart';
-import '../widget/loading_widget.dart';
+import '../../controller/base_controller.dart';
+import '../../utils/mixin/toast/toast_mixin.dart';
+import '../load_state_widget.dart';
+import '../loading_widget.dart';
 
 ///常用页面无状态page封装，基本依赖Controller+OBX实现原有State+StatefulWidget效果
 abstract class BaseStatelessWidget<T extends BaseController> extends GetView<T>

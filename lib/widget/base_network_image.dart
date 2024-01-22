@@ -1,9 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_utils/src/extensions/context_extensions.dart';
-import 'package:open_eye/res/colors.dart';
-import 'package:open_eye/utils/log_utils.dart';
+import '../res/colors.dart';
 
 // ignore: must_be_immutable
 class BaseNetworkImage extends CachedNetworkImage {
@@ -36,11 +33,6 @@ class BaseNetworkImage extends CachedNetworkImage {
               size: size,
               color: ColorStyle.color_999999,
             );
-            return Image.asset(
-              "assets/images/back_placeholder.png", width: width,
-              height: height,
-              // centerSlice: const Rect.fromLTRB(24, 26, 95, 93),  //.9图的效果（有问题，待处理）
-            );
           },
           errorWidget: (context, url, error) {
             double size = 50;
@@ -53,11 +45,6 @@ class BaseNetworkImage extends CachedNetworkImage {
               Icons.image,
               size: size,
               color: ColorStyle.color_666666,
-            );
-            return Image.asset(
-              "assets/images/back_placeholder.png", width: width,
-              height: height,
-              // centerSlice: const Rect.fromLTRB(24, 26, 95, 93),  //.9图的效果（有问题，待处理）
             );
           },
           fadeInDuration: const Duration(milliseconds: 0),

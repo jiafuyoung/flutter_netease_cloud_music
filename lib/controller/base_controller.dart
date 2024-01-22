@@ -8,7 +8,7 @@ import 'package:netease_cloud_music_flutter/ext/get_extension.dart';
 import '../http/app_except.dart';
 import '../http/result/base_result.dart';
 import '../http/result/base_wan_result.dart';
-import '../mixin/toast/toast_mixin.dart';
+import '../utils/mixin/toast/toast_mixin.dart';
 import '../utils/log_utils.dart';
 
 ///具有状态控制和网络请求能力的controller，等价MVVM中的ViewModel

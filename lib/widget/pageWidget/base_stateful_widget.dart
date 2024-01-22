@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controller/base_controller.dart';
-import '../mixin/toast/toast_mixin.dart';
-import '../component/load_state_widget.dart';
-import '../component/loading_widget.dart';
+import '../../controller/base_controller.dart';
+import '../../utils/mixin/toast/toast_mixin.dart';
+import '../../component/load_state_widget.dart';
+import '../../component/loading_widget.dart';
 
 ///具有状态管理的基础页面，满足一些特定需要State的Widget(暂时还未发现需要使用State的场景)
 abstract class BaseStatefulWidget<T extends BaseController>
