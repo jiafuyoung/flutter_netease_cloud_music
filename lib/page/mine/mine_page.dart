@@ -56,6 +56,11 @@ class MineController extends BaseController<ApiSer> {
       logI(p.token as String);
     });
   }
+
+  @override
+  void onHidden() {
+    // TODO: implement onHidden
+  }
 }
 
 class MineBinding extends Bindings {

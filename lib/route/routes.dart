@@ -20,11 +20,11 @@ abstract class AppRoutes {
         binding: LoginedBinding()),
     GetPage(
         name: AppRoutes.loginPage,
-        page: () => const LoginPage(),
+        page: () => LoginPage(),
         binding: LoginBinding()),
     GetPage(
         name: AppRoutes.findPage,
-        page: () => const FindPage(),
+        page: () => FindPage(),
         binding: FindBinding()),
     GetPage(
         name: AppRoutes.followPage,

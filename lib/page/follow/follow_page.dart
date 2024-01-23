@@ -47,6 +47,11 @@ class FollowController extends BaseController<ApiSer> {
     super.onReady();
     loadNet();
   }
+
+  @override
+  void onHidden() {
+    // TODO: implement onHidden
+  }
 }
 
 class FollowBinding extends Bindings {

@@ -18,10 +18,8 @@ class BaseNetworkImage extends CachedNetworkImage {
           height: height,
           width: width,
           fit: fit,
+          //占位
           placeholder: (context, url) {
-            // var height2 = context.height;
-            // var width2 = context.width;
-            // LogWTF("链接、宽高>>>>>>>>>>>>>>$height2>>>>>>>>$width2>>>>>>$url");
             double size = 50;
             if (width != null && width != double.infinity) {
               size = width * 0.5;
@@ -34,6 +32,7 @@ class BaseNetworkImage extends CachedNetworkImage {
               color: ColorStyle.color_999999,
             );
           },
+          //失败后的占位图
           errorWidget: (context, url, error) {
             double size = 50;
             if (width != null && width != double.infinity) {

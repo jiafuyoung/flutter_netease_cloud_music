@@ -1,6 +1,7 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ImageExends extends StatelessWidget {
   final String imgUrl;
   int? width;

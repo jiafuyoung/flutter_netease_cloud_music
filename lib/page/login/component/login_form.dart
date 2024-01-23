@@ -1,8 +1,10 @@
+import 'dart:convert';
+
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
 import 'package:netease_cloud_music_flutter/const/api_constant.dart';
 import 'package:netease_cloud_music_flutter/http/api/api_ser.dart';
-import 'package:netease_cloud_music_flutter/widget/dialog/dialog_common_style.dart';
+import 'package:netease_cloud_music_flutter/http/preferences/user_preferences.dart';
 import '../../../const/constants.dart';
 import '../../../http/result/base_result.dart';
 import '../../../http/result/base_wan_result.dart';
@@ -71,26 +73,31 @@ class _LoginformState extends State<LoginForm> {
             //点击登录跳转
             onPressed: () async {
               Get.testMode = true;
-              Get.offAndToNamed("/logined_page");
-              // Future<PersonInfo> personInfo =
-              //     ApiSer().getPersonInfo(phone, password);
-              // personInfo.then((t) {
-              //   //code符合成功则跳转登录页
-              //   if (t.code == ApiConstant.API_SUCESS) {
-              //     Get.offAndToNamed("/logined_page");
-              //   } else {
-              //     //不成功则显示提示
-              //     showDialog(
-              //         context: context,
-              //         builder: (context) {
-              //           return const AlertDialog(
-              //             content: Text("登录出错"),
-              //           );
-              //         });
-              //   }
-              // }).catchError((e) {
-              //   logE("网络请求异常====>error:$e");
-              // });
+              Future<PersonInfo> personInfo =
+                  ApiSer().getPersonInfo(phone, password);
+              personInfo.then((t) {
+                if (t.code == ApiConstant.API_SUCESS) {
+                  ///code符合成功则跳转登录页
+                  ///jsonEncode，要用 encode 转为 json 字符串，tostring 得来的无法解析，会出现 key 和 value 没有双引号包裹的非 json 串
+                  UserPreferences().setUserInfo(jsonEncode(t));
+                  UserPreferences().setIsLoggedIn(true);
+                  Get.offAndToNamed("/logined_page");
+                } else {
+                  //登录失败时持久化登录状态置为 false，好判断
+                  logI("登录失败并修改登录状态");
+                  UserPreferences().setIsLoggedIn(false);
+                  //不成功则显示提示
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const AlertDialog(
+                          content: Text("登录出错"),
+                        );
+                      });
+                }
+              }).catchError((e) {
+                logE("网络请求异常====>error:$e");
+              });
             },
             child: Text(
               "Login".toUpperCase(),

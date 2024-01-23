@@ -57,11 +57,9 @@ class _MyAppState extends State<MyApp> {
                 theme: ThemeData(
                   primarySwatch: Colors.red,
                 ),
-                // initialBinding: TestBinding(),
-                // home: TestPage(),
                 //要先通过binding 注入 controller
                 initialBinding: LoginBinding(),
-                home: const LoginPage(),
+                home: LoginPage(),
                 locale: const Locale('zh'),
               )),
     );

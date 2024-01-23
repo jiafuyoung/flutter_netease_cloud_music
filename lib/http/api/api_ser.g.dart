@@ -46,6 +46,7 @@ class _ApiSer implements ApiSer {
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     //其余接口通过 basecontroller 封装，登录接口因为请求的接口是经过服务器转发，要用 statuscode 判断
+    //调登录接口时保存用户信息
     if (_result.statusCode == 200) {
       final value = PersonInfo.fromJson(_result.data!);
       return value;

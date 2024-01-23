@@ -55,7 +55,7 @@ class LoginedController<T> extends BaseController<ApiSer> {
   final PageController _pageController = PageController(initialPage: 0);
 
   final List<Widget> naviItems = [
-    const FindPage(),
+    FindPage(),
     const MinePage(),
     const FollowPage(),
   ];
@@ -79,7 +79,6 @@ class LoginedController<T> extends BaseController<ApiSer> {
 class LoginedBinding extends Bindings {
   @override
   void dependencies() {
-    logD(">>>>>>>>>>>>开始注入代码");
     Get.lazyPut(() => LoginedController());
     Get.lazyPut(() => MineController());
     Get.lazyPut(() => FindController());
