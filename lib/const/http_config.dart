@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 class HttpConfig {
   //接口基础地址
-  static const baseUrl = 'http://xxx:xxx';
+  static const baseUrl = 'http://wawayoung.top:3000';
   static const connectTimeout = 5000;
   static const receiveTimeout = 3000;
 
