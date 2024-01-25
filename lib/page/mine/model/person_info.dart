@@ -11,7 +11,7 @@ class PersonInfo {
   Account? account;
   String? token;
   Profile? profile;
-  String? cookie;
+  String cookie = "";
 
   PersonInfo(
       {this.loginType,
@@ -19,7 +19,7 @@ class PersonInfo {
       this.account,
       this.token,
       this.profile,
-      this.cookie});
+      required this.cookie});
 
   PersonInfo.fromJson(Map<String, dynamic> json) {
     loginType = json['loginType'];

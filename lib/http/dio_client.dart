@@ -51,6 +51,7 @@ class DioClient {
 
     // 添加error拦截器
     dio.interceptors.add(ErrorInterceptor());
+    // dio.interceptors.add(ResponseInterceptors());
     dio.interceptors.add(HttpParamsInterceptor());
     dio.interceptors.add(PrettyDioLogger(
       // 添加日志格式化工具类

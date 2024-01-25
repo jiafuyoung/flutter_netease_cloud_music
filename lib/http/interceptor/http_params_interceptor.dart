@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:netease_cloud_music_flutter/const/constants.dart';
+import 'package:netease_cloud_music_flutter/http/preferences/user_preferences.dart';
 
 ///请求参数拦截器
 class HttpParamsInterceptor extends Interceptor {
@@ -15,9 +17,21 @@ class HttpParamsInterceptor extends Interceptor {
   static const APP_ID = "test_android";
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     var headers = options.headers;
-    headers["token"] = "MHRYOVRHbEZBL1M0anlXRTdrYWY3Z2hpL1hzWFNZTTh4dWI1NXdKdjRFTG1obUhrN1hjbnJieDlZUnUwT1ArWkRkbmp0ajdIR3dpU1dSdGJRTFRnNnZUZEtwV1dIQWpxSWFORjNUU3JsRzA9";
+    Map<String, dynamic> body = options.data;
+    var cookie = await UserPreferences().getCookies();
+
+    if (options.method == METHOD_GET) {
+      options.path = options.path + "?cookie=" + cookie.toString();
+    } else {
+      body["cookie"] = cookie.toString();
+    }
+
+    headers["token"] =
+        "MHRYOVRHbEZBL1M0anlXRTdrYWY3Z2hpL1hzWFNZTTh4dWI1NXdKdjRFTG1obUhrN1hjbnJieDlZUnUwT1ArWkRkbmp0ajdIR3dpU1dSdGJRTFRnNnZUZEtwV1dIQWpxSWFORjNUU3JsRzA9";
+
     super.onRequest(options, handler);
   }
 

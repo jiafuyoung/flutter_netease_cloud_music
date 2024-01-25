@@ -1,18 +1,13 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
+import "package:netease_cloud_music_flutter/component/drawer_component.dart";
 import "package:netease_cloud_music_flutter/controller/base_controller.dart";
-import 'package:netease_cloud_music_flutter/http/api/api_ser.dart';
-import "package:netease_cloud_music_flutter/page/mine/model/person_info.dart";
+import "package:netease_cloud_music_flutter/http/api/login/api_login.dart";
 import 'package:netease_cloud_music_flutter/widget/pageWidget/base_stateful_widget.dart';
 import "package:netease_cloud_music_flutter/utils/log_utils.dart";
 
 class MinePage extends BaseStatefulWidget<MineController> {
   const MinePage({Key? key}) : super(key: key);
-
-  @override
-  bool showDrawer() {
-    return true;
-  }
 
   @override
   Widget buildContent(BuildContext context) {
@@ -36,6 +31,16 @@ class MinePage extends BaseStatefulWidget<MineController> {
   String titleString() {
     return "我的";
   }
+
+  @override
+  bool showDrawer() {
+    return true;
+  }
+
+  @override
+  Widget indexDrawer() {
+    return const DrawerComponent();
+  }
 }
 
 class MineController extends BaseController<ApiSer> {
@@ -51,11 +56,7 @@ class MineController extends BaseController<ApiSer> {
     requestPersonInfo();
   }
 
-  void requestPersonInfo() {
-    httpRequest<PersonInfo>(api.getPersonInfo('xxxx', 'xxx'), (p) {
-      logI(p.token as String);
-    });
-  }
+  void requestPersonInfo() {}
 
   @override
   void onHidden() {

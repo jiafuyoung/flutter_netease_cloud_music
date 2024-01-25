@@ -6,14 +6,27 @@ class UserPreferences {
   static const String userInfoKey = "userInfo"; // 用于保存用户信息的键值对
   static const String isLoggedInKey = "isLoggedIn"; // 用于保存登录状态的布尔值
   static const String lastLogin = "lastLogin";
+  static const String COOKIES = "cookies";
 
   Future<void> setUserInfo(String personInfo) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    double dateTime = nowSeconds();
-    logI("设置用户信息，同时设置登录时间----" + dateTime.toString());
-    prefs.setDouble(lastLogin, dateTime);
+    prefs.setDouble(lastLogin, nowSeconds());
+    logI("持久化信息--------------" + personInfo);
     await prefs.setString(userInfoKey, personInfo);
+  }
+
+  Future<void> setCookies(String cookies) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(COOKIES, cookies);
+  }
+
+  Future<String?> getCookies() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString(COOKIES) == null) {
+      return "";
+    } else {
+      return prefs.getString(COOKIES);
+    }
   }
 
   Future<double?> getLastLogin() async {
@@ -21,10 +34,8 @@ class UserPreferences {
 
     double dateTime = nowSeconds();
     if (prefs.getDouble(lastLogin) == null) {
-      logI("无上次登录时间戳---" + dateTime.toString());
       return dateTime;
     } else {
-      logI("上次登录时间戳" + prefs.getDouble(lastLogin).toString());
       return prefs.getDouble(lastLogin);
     }
   }
@@ -40,24 +51,21 @@ class UserPreferences {
 
   Future<bool> setIsLoggedIn(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    logI("修改登录状态");
     return prefs.setBool(isLoggedInKey, value);
   }
 
   Future<bool?> getIsLoggedIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    logI("是否登录");
     if (prefs.getBool(isLoggedInKey) == null) {
-      logI("值为空");
       return false;
     } else {
-      logI("值不为空" + prefs.getBool(isLoggedInKey).toString());
       return prefs.getBool(isLoggedInKey);
     }
   }
 
   Future<bool?> deleteUserInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    setCookies("");
     return prefs.remove(userInfoKey).then((value) => setIsLoggedIn(false));
   }
 }

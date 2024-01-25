@@ -1,6 +1,6 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:get/get.dart';
-import 'package:netease_cloud_music_flutter/http/api/api_ser.dart';
+import 'package:netease_cloud_music_flutter/http/api/login/api_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 ///初始化注入对象

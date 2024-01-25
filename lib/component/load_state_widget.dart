@@ -61,10 +61,10 @@ AppBar createAppBar(
 }
 
 ///构建侧边栏内容
-Widget? createIndexDrawer(String imgUrl, String userName) => Drawer(
+Widget createIndexDrawer(String userName, String imgUrl) => Drawer(
       child: Column(
         children: [
-          DrawerHeader(child: createIndexDrawerHeader(userName)),
+          DrawerHeader(child: createIndexDrawerHeader(userName, imgUrl)),
           ListTile(
             leading: Text("lead"),
             title: Text("侧边栏 2"),
@@ -76,13 +76,14 @@ Widget? createIndexDrawer(String imgUrl, String userName) => Drawer(
       ),
     );
 
-DrawerHeader? createIndexDrawerHeader(String userName) => DrawerHeader(
+///构建侧边栏head内容
+DrawerHeader? createIndexDrawerHeader(String userName, String imgUrl) =>
+    DrawerHeader(
       child: Row(
         children: [
           Expanded(
               child: Image(
-            image: NetworkImage(
-                "https://p1.music.126.net/4131R-VbfOuTeiI-9jiwAw==/18619129906889994.jpg"),
+            image: NetworkImage(imgUrl),
             width: 30,
             height: 30,
           )), //头像

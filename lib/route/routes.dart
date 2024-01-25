@@ -16,7 +16,7 @@ abstract class AppRoutes {
     ///主入口
     GetPage(
         name: AppRoutes.loginedPage, //上面统一定义的静态常量
-        page: () => const LoginedPage(), //LoginedPage()，页面里所写的构造方法
+        page: () => LoginedPage(), //LoginedPage()，页面里所写的构造方法
         binding: LoginedBinding()),
     GetPage(
         name: AppRoutes.loginPage,

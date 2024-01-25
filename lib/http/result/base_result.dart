@@ -3,20 +3,20 @@ import 'package:json_annotation/json_annotation.dart';
 part 'base_result.g.dart';
 
 @JsonSerializable(genericArgumentFactories: true)
-class BaseResult<T> {
-  @JsonKey(name: "resCode")
-  String? resCode;
-  @JsonKey(name: "resMessage")
-  String? resMessage;
-  @JsonKey(name: "resObject")
-  T? resObject;
+class BaseResult {
+  @JsonKey(name: "statusCode")
+  int? statusCode;
+  @JsonKey(name: "statusMessage")
+  String? statusMessage;
+  @JsonKey(name: "data")
+  Map<String, dynamic>? data;
+  @JsonKey(name: "extra")
+  Map<String, dynamic>? extra;
 
-  BaseResult({this.resCode, this.resMessage, this.resObject});
+  BaseResult({this.statusCode, this.statusMessage, this.data, this.extra});
 
-  factory BaseResult.fromJson(
-          Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
-      _$BaseResultFromJson(json, fromJsonT);
+  factory BaseResult.fromJson(Map<String, dynamic> json) =>
+      _$BaseResultFromJson(json);
 
-  Map<String, dynamic> toJson(Object Function(T value) toJsonT) =>
-      _$BaseResultToJson(this, toJsonT);
+  Map<String, dynamic> toJson() => _$BaseResultToJson(this);
 }

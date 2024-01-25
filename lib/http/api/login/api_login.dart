@@ -1,14 +1,19 @@
+
 import 'package:dio/dio.dart';
-import 'package:netease_cloud_music_flutter/const/http_config.dart';
+import 'package:netease_cloud_music_flutter/const/config/http_config.dart';
 import 'package:netease_cloud_music_flutter/http/dio_client.dart';
+import 'package:netease_cloud_music_flutter/page/mine/model/person_info.dart';
+import 'package:netease_cloud_music_flutter/page/mine/model/person_info_login_status.dart';
+import 'package:netease_cloud_music_flutter/utils/log_utils.dart';
 import 'package:retrofit/http.dart';
 
-import '../../page/mine/model/person_info.dart';
+part 'api_login.g.dart';
 
-part 'api_ser.g.dart';
+//生成.g.dart文件
+//flutter pub run build_runner build --delete-conflicting-outputs
 
 //Retrofit通过注解方式定义API接口，并支持同步和异步请求。它还支持多种HTTP请求方法（如GET、POST、PUT、DELETE等）和请求参数的自动处理。
-@RestApi(baseUrl: HttpConfig.baseUrl)
+@RestApi()
 abstract class ApiSer {
   //Dart 强大的空安全（操作符 ? 和 ! ，关键字 late）
   //？（类型后面跟操作符 ? 表示当前变量可为null。）
@@ -16,10 +21,14 @@ abstract class ApiSer {
   //初始化 late,假设有一个属性，此属性的值来源于服务器或者其他方法，那么此时无法给此属性进行初始化
   factory ApiSer({Dio? dio, String? baseUrl}) {
     dio = DioClient().dio;
-    return _ApiSer(dio, baseUrl: baseUrl);
+
+    return _ApiSer(dio, baseUrl: HttpConfig.baseUrl);
   }
 
   @GET("/login/cellphone")
   Future<PersonInfo> getPersonInfo(
       @Query("phone") String phone, @Query("password") String password);
+
+  @GET("/login/status")
+  Future<PersonInfoLoginStatus> getPersonInfoLoginStatus();
 }

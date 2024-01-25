@@ -3,11 +3,9 @@ import 'dart:convert';
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
 import 'package:netease_cloud_music_flutter/const/api_constant.dart';
-import 'package:netease_cloud_music_flutter/http/api/api_ser.dart';
+import 'package:netease_cloud_music_flutter/http/api/login/api_login.dart';
 import 'package:netease_cloud_music_flutter/http/preferences/user_preferences.dart';
 import '../../../const/constants.dart';
-import '../../../http/result/base_result.dart';
-import '../../../http/result/base_wan_result.dart';
 import '../../../utils/log_utils.dart';
 import '../../mine/model/person_info.dart';
 
@@ -74,6 +72,7 @@ class _LoginformState extends State<LoginForm> {
             onPressed: () async {
               Get.testMode = true;
               Future<PersonInfo> personInfo =
+                  // ApiSer().getPersonInfo(phone, password);
                   ApiSer().getPersonInfo(phone, password);
               personInfo.then((t) {
                 if (t.code == ApiConstant.API_SUCESS) {
@@ -81,6 +80,8 @@ class _LoginformState extends State<LoginForm> {
                   ///jsonEncode，要用 encode 转为 json 字符串，tostring 得来的无法解析，会出现 key 和 value 没有双引号包裹的非 json 串
                   UserPreferences().setUserInfo(jsonEncode(t));
                   UserPreferences().setIsLoggedIn(true);
+                  logI("cooki===" + t.cookie);
+                  UserPreferences().setCookies(t.cookie);
                   Get.offAndToNamed("/logined_page");
                 } else {
                   //登录失败时持久化登录状态置为 false，好判断
@@ -121,23 +122,5 @@ class _LoginformState extends State<LoginForm> {
         ],
       ),
     );
-  }
-
-  //登录方法
-  int? _login(c) {
-    Future<PersonInfo> personInfo = ApiSer().getPersonInfo(phone, password);
-    personInfo.then((t) {
-      ///添加结果码判断（同时考虑加入List的判断逻辑）
-      if (t is BaseWanResult) {
-        logI("出错 1");
-      } else if (t is BaseResult) {
-        logI("出错 2");
-      } else {
-        return t.code;
-      }
-    }).catchError((e) {
-      logE("网络请求异常====>error:$e");
-    });
-    return null;
   }
 }

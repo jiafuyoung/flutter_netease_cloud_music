@@ -6,34 +6,17 @@ part of 'base_result.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-BaseResult<T> _$BaseResultFromJson<T>(
-  Map<String, dynamic> json,
-  T Function(Object? json) fromJsonT,
-) =>
-    BaseResult<T>(
-      resCode: json['resCode'] as String?,
-      resMessage: json['resMessage'] as String?,
-      resObject: _$nullableGenericFromJson(json['resObject'], fromJsonT),
+BaseResult _$BaseResultFromJson(Map<String, dynamic> json) => BaseResult(
+      statusCode: json['statusCode'] as int?,
+      statusMessage: json['statusMessage'] as String?,
+      data: json['data'] as Map<String, dynamic>?,
+      extra: json['extra'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$BaseResultToJson<T>(
-  BaseResult<T> instance,
-  Object? Function(T value) toJsonT,
-) =>
+Map<String, dynamic> _$BaseResultToJson(BaseResult instance) =>
     <String, dynamic>{
-      'resCode': instance.resCode,
-      'resMessage': instance.resMessage,
-      'resObject': _$nullableGenericToJson(instance.resObject, toJsonT),
+      'statusCode': instance.statusCode,
+      'statusMessage': instance.statusMessage,
+      'data': instance.data,
+      'extra': instance.extra,
     };
-
-T? _$nullableGenericFromJson<T>(
-  Object? input,
-  T Function(Object? json) fromJson,
-) =>
-    input == null ? null : fromJson(input);
-
-Object? _$nullableGenericToJson<T>(
-  T? input,
-  Object? Function(T value) toJson,
-) =>
-    input == null ? null : toJson(input);

@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netease_cloud_music_flutter/page/mine/model/person_info_login_status.dart';
 
 import '../../controller/base_controller.dart';
 import '../../utils/mixin/toast/toast_mixin.dart';
@@ -26,7 +25,7 @@ abstract class BaseStatefulWidget<T extends BaseController>
     return Scaffold(
       appBar: _createAppBar(context),
       body: buildBody(context),
-      drawer: showDrawer() ? createIndexDrawer("头像地址", "兔理鱼") : null,
+      drawer: _createDrawer(),
     );
   }
 
@@ -36,6 +35,15 @@ abstract class BaseStatefulWidget<T extends BaseController>
       return createAppBar(
           titleString(), showBackButton(), appBarActionWidget(context),
           titleWidget: titleWidget());
+    } else {
+      //不显示TitleBar的页面构建的画面
+      return null;
+    }
+  }
+
+  Widget? _createDrawer() {
+    if (showDrawer()) {
+      return indexDrawer();
     } else {
       //不显示TitleBar的页面构建的画面
       return null;
@@ -66,10 +74,12 @@ abstract class BaseStatefulWidget<T extends BaseController>
     }
   }
 
+  PersonInfoLoginStatus personInfo() => PersonInfoLoginStatus();
+
   ///是否展示titleBar标题栏
   bool showTitleBar() => false;
 
-  //侧边栏，默认开启
+  ///是否展示titleBar标题栏
   bool showDrawer() => false;
 
   ///页面标题设置
@@ -77,6 +87,8 @@ abstract class BaseStatefulWidget<T extends BaseController>
 
   //标题栏title的通用Widget样式
   Widget? titleWidget() => null;
+
+  Widget indexDrawer() => createIndexDrawer("默认", "默认");
 
   ///是否开启加载状态
   bool useLoadSir() => true;

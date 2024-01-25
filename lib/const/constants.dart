@@ -6,3 +6,6 @@ const kPrimaryLightColor = Color(0xFFF1E6FF);
 const double defaultPadding = 16.0;
 
 const double ONE_WEEK_SECONDS = 604800;
+
+const String METHOD_GET = "GET";
+const String METHOD_POST = "POST";

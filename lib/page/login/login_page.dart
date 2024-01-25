@@ -1,8 +1,9 @@
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
+import 'package:netease_cloud_music_flutter/component/drawer_component.dart';
 import 'package:netease_cloud_music_flutter/const/constants.dart';
 import 'package:netease_cloud_music_flutter/controller/base_controller.dart';
-import 'package:netease_cloud_music_flutter/http/api/api_ser.dart';
+import 'package:netease_cloud_music_flutter/http/api/login/api_login.dart';
 import 'package:netease_cloud_music_flutter/http/preferences/user_preferences.dart';
 import 'package:netease_cloud_music_flutter/utils/log_utils.dart';
 import 'package:netease_cloud_music_flutter/utils/time_util.dart';
@@ -29,8 +30,6 @@ class LoginPage extends BaseStatelessWidget<LoginController> {
       LoginedPage loginedPage =
           Get.offAndToNamed("/logined_page") as LoginedPage;
       return loginedPage;
-      // return null;
-      // return const LoginedPage();
     }
     logI("未登录");
     return const Background(
@@ -79,18 +78,27 @@ class LoginController extends BaseController<ApiSer> {
 
   @override
   void loadNet() async {
+    // logI("获取登录状态");
+    // personInfo.then((value) {
+    //   //正确获取到用户信息
+    //   logI("登录状态" + value.toJson().toString());
+    //   login = RxBool(true);
+    //   UserPreferences().setUserInfo(jsonEncode(value));
+    // }).catchError((e) async {
+    //如果异常就从上次登录的持久化中获取，前提是本地的数据未过期
     var isLogin = await UserPreferences().getIsLoggedIn();
     var lastLogin = await UserPreferences().getLastLogin();
     if (isLogin != null && isLogin) {
-      logI("相差时间" + (nowSeconds() - lastLogin!).toString());
-      if (nowSeconds() - lastLogin <= ONE_WEEK_SECONDS) {
+      logI("有登录过");
+      if (nowSeconds() - lastLogin! <= ONE_WEEK_SECONDS) {
+        logI("在期限内");
         login = RxBool(true);
-        // }
       } else {
-        logI("islogin 无值或为 false");
+        logI("过期");
       }
     }
     showSuccess();
+    logI(login.string);
   }
 }
 
@@ -125,6 +133,7 @@ class LoginBinding extends Bindings {
   void dependencies() {
     logD(">>>>>>>>>>>>开始注入代码");
     Get.lazyPut(() => LoginController());
+    Get.lazyPut(() => DrawerComponentController());
     Get.lazyPut(() => LoginedController());
     Get.lazyPut(() => MineController());
     Get.lazyPut(() => FindController());

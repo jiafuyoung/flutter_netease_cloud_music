@@ -16,7 +16,7 @@ PersonInfo _$PersonInfoFromJson(Map<String, dynamic> json) => PersonInfo(
       profile: json['profile'] == null
           ? null
           : Profile.fromJson(json['profile'] as Map<String, dynamic>),
-      cookie: json['cookie'] as String?,
+      cookie: json['cookie'] as String,
     );
 
 Map<String, dynamic> _$PersonInfoToJson(PersonInfo instance) =>

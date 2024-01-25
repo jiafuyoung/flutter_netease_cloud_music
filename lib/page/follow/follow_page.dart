@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
-import 'package:netease_cloud_music_flutter/http/api/api_ser.dart';
+import 'package:netease_cloud_music_flutter/component/drawer_component.dart';
+import 'package:netease_cloud_music_flutter/http/api/login/api_login.dart';
 
 import '../../controller/base_controller.dart';
 import '../../widget/pageWidget/base_stateful_widget.dart';
@@ -8,11 +9,6 @@ import '../../utils/log_utils.dart';
 
 class FollowPage extends BaseStatefulWidget<FollowController> {
   const FollowPage({Key? key}) : super(key: key);
-
-  @override
-  bool showDrawer() {
-    return true;
-  }
 
   @override
   Widget buildContent(BuildContext context) {
@@ -32,6 +28,16 @@ class FollowPage extends BaseStatefulWidget<FollowController> {
   @override
   bool showTitleBar() {
     return true;
+  }
+
+  @override
+  bool showDrawer() {
+    return true;
+  }
+
+  @override
+  Widget indexDrawer() {
+    return const DrawerComponent();
   }
 }
 
