@@ -57,7 +57,6 @@ class LoginedPage<T> extends BaseStatefulWidget<LoginedController> {
         )));
   }
 
-  // @override
   // Widget? indexDrawer() {
   //   logI("开始绘制，昵称为" + _loginedController._nickName.value);
   //   return Obx(() => Drawer(
@@ -132,9 +131,10 @@ class LoginedController<T> extends BaseController<ApiSer> {
 
   @override
   void loadNet() {
-    Future<PersonInfoLoginStatus> person = ApiSer().getPersonInfoLoginStatus();
-    person.then((value) {
-      personInfo = value;
+    Future<Map<String, PersonInfoLoginStatus>> data =
+        ApiSer().getPersonInfoLoginStatus();
+    data.then((value) {
+      personInfo = value["data"]!;
       _nickName = RxString(personInfo.profile!.nickname);
       _imgUrl = RxString(personInfo.profile!.avatarUrl);
       _drawerController.updeteUserInfo(_nickName.value, _imgUrl.value);

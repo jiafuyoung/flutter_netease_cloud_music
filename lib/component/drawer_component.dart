@@ -1,5 +1,8 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netease_cloud_music_flutter/component/my_icon.dart';
 
 class DrawerComponent extends StatefulWidget {
   const DrawerComponent({Key? key}) : super(key: key);
@@ -14,7 +17,8 @@ class _DrawerComponentState extends State<DrawerComponent> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Drawer(
-            child: Column(
+        backgroundColor: Color.fromRGBO(245, 245, 245, 1),
+        child: Column(
           children: [
             DrawerHeader(
                 child: DrawerHeader(
@@ -47,15 +51,48 @@ class _DrawerComponentState extends State<DrawerComponent> {
               ),
               // padding: EdgeInsets.fromLTRB(40, 40, 40, 40),
               decoration: const BoxDecoration(
-                  color: Colors.grey,
+                  color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(20))),
             )),
-            const ListTile(
-              leading: Text("lead"),
-              title: Text("侧边栏 2"),
+            Container(
+              child: Column(
+                children: [
+                  ListTile(
+                    leading:
+                        MyIcon(imgUrl: "assets/icons/button_icon/message.png"),
+                    title: Text("消息中心"),
+                  ),
+                  ListTile(
+                    title: Text("this "),
+                  ),
+                ],
+              ),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              margin: EdgeInsets.all(20),
             ),
-            const ListTile(
-              title: Text("this "),
+            //可用Container来分隔
+            // Container(
+            //   color: Colors.red,
+            //   height: 10,
+            // ),
+            Container(
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: Text("lead"),
+                    title: Text("侧边栏 2"),
+                  ),
+                  ListTile(
+                    title: Text("this "),
+                  ),
+                ],
+              ),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              margin: EdgeInsets.all(20),
             ),
           ],
         )));
@@ -72,4 +109,6 @@ class DrawerComponentController extends GetxController {
     _imgUrl = RxString(imgUrl);
     update();
   }
+
+  void logout() {}
 }

@@ -43,19 +43,18 @@ class _ApiSer implements ApiSer {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    logI("登录接口" + _result.data.toString());
     final value = PersonInfo.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<PersonInfoLoginStatus> getPersonInfoLoginStatus() async {
+  Future<Map<String, PersonInfoLoginStatus>> getPersonInfoLoginStatus() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<PersonInfoLoginStatus>(Options(
+        _setStreamType<Map<String, PersonInfoLoginStatus>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -67,8 +66,31 @@ class _ApiSer implements ApiSer {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    logI("登录状态接口" + _result.data.toString());
-    final value = PersonInfoLoginStatus.fromJson(_result.data!['data']);
+    var value = _result.data!.map((k, dynamic v) =>
+        MapEntry(k, PersonInfoLoginStatus.fromJson(v as Map<String, dynamic>)));
+    return value;
+  }
+
+  @override
+  Future<Map<String, int>> logout() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<Map<String, int>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/logout',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!.cast<String, int>();
     return value;
   }
 
