@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class MyIcon extends StatelessWidget {
   final String imgUrl;
@@ -11,6 +12,45 @@ class MyIcon extends StatelessWidget {
       image: AssetImage(imgUrl),
       width: 30,
       height: 30,
+    );
+  }
+}
+
+class FindMyIconWithText extends StatelessWidget {
+  final String imgUrl;
+  final String bottomText;
+  //父组件传入的方法【类型定义为VoidCallback而不是 function】
+  final VoidCallback? clickIcon;
+
+  FindMyIconWithText(
+      {Key? key,
+      required this.imgUrl,
+      required this.bottomText,
+      this.clickIcon})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    ///GestureDetector，包含了包括点击等行为，包裹容器实现点击后的行为
+    return GestureDetector(
+      onTap: clickIcon,
+      child: SizedBox(
+        child: Column(
+          children: [
+            SizedBox(
+              child: SvgPicture.asset(imgUrl),
+              width: 50,
+              height: 50,
+            ),
+            Text(
+              bottomText,
+              style: TextStyle(color: Colors.red),
+            )
+          ],
+        ),
+        width: 100,
+        height: 100,
+      ),
     );
   }
 }

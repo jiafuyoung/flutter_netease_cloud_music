@@ -71,6 +71,8 @@ class _LoginformState extends State<LoginForm> {
             //点击登录跳转
             onPressed: () async {
               Get.testMode = true;
+              UserPreferences().setPhone(phone);
+
               Future<PersonInfo> personInfo =
                   // ApiSer().getPersonInfo(phone, password);
                   ApiSer().getPersonInfo(phone, password);
@@ -78,7 +80,7 @@ class _LoginformState extends State<LoginForm> {
                 if (t.code == ApiConstant.API_SUCESS) {
                   ///code符合成功则跳转登录页
                   ///jsonEncode，要用 encode 转为 json 字符串，tostring 得来的无法解析，会出现 key 和 value 没有双引号包裹的非 json 串
-                  UserPreferences().setUserInfo(jsonEncode(t));
+                  UserPreferences().setLogin(jsonEncode(t));
                   UserPreferences().setIsLoggedIn(true);
                   logI("cooki===" + t.cookie);
                   UserPreferences().setCookies(t.cookie);

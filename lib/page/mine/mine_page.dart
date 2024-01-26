@@ -1,13 +1,20 @@
+import "dart:convert";
+
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:netease_cloud_music_flutter/component/drawer_component.dart";
 import "package:netease_cloud_music_flutter/controller/base_controller.dart";
 import "package:netease_cloud_music_flutter/http/api/login/api_login.dart";
-import 'package:netease_cloud_music_flutter/widget/pageWidget/base_stateful_widget.dart';
+import "package:netease_cloud_music_flutter/http/preferences/user_preferences.dart";
+import "package:netease_cloud_music_flutter/page/mine/model/person_info.dart";
+import "package:netease_cloud_music_flutter/page/mine/model/person_info_login_status.dart";
 import "package:netease_cloud_music_flutter/utils/log_utils.dart";
+import 'package:netease_cloud_music_flutter/widget/pageWidget/base_stateful_widget.dart';
 
 class MinePage extends BaseStatefulWidget<MineController> {
-  const MinePage({Key? key}) : super(key: key);
+  MinePage({Key? key}) : super(key: key);
+
+  final MineController _mineController = Get.find();
 
   @override
   Widget buildContent(BuildContext context) {
@@ -29,7 +36,7 @@ class MinePage extends BaseStatefulWidget<MineController> {
 
   @override
   String titleString() {
-    return "我的";
+    return _mineController._title;
   }
 
   @override
@@ -44,19 +51,28 @@ class MinePage extends BaseStatefulWidget<MineController> {
 }
 
 class MineController extends BaseController<ApiSer> {
+  String _title = "我的";
+
   @override
   void onReady() {
-    logD("mine 初始化");
     super.onReady();
     loadNet();
+    showSuccess();
   }
 
   @override
-  void loadNet() {
-    requestPersonInfo();
+  void loadNet() async {
+    var _userInfoPreference = await UserPreferences().getUserInfoLoginStatus();
+    if (_userInfoPreference!.isNotEmpty) {
+      PersonInfoLoginStatus _personInfo =
+          PersonInfoLoginStatus.fromJson(jsonDecode(_userInfoPreference));
+      _title = _personInfo.profile!.nickname;
+    } else {
+      PersonInfo _personInfo =
+          PersonInfo.fromJson(jsonDecode(_userInfoPreference));
+      _title = _personInfo.profile!.nickname!;
+    }
   }
-
-  void requestPersonInfo() {}
 
   @override
   void onHidden() {

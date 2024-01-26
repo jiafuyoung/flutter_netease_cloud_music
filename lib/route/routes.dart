@@ -32,7 +32,7 @@ abstract class AppRoutes {
         binding: FollowBinding()),
     GetPage(
         name: AppRoutes.minePage,
-        page: () => const MinePage(),
+        page: () => MinePage(),
         binding: MineBinding()),
   ];
 }

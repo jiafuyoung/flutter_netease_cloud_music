@@ -4,6 +4,7 @@ import 'package:netease_cloud_music_flutter/component/drawer_component.dart';
 import 'package:netease_cloud_music_flutter/http/api/login/api_login.dart';
 
 import '../../controller/base_controller.dart';
+import '../../http/preferences/user_preferences.dart';
 import '../../widget/pageWidget/base_stateful_widget.dart';
 import '../../utils/log_utils.dart';
 
@@ -12,9 +13,16 @@ class FollowPage extends BaseStatefulWidget<FollowController> {
 
   @override
   Widget buildContent(BuildContext context) {
-    return const SizedBox(
+    return SizedBox(
       child: Column(
-        children: [Text("关注tap页面")],
+        children: [
+          const Text("关注tap页面"),
+          ElevatedButton(
+              onPressed: () async {
+                UserPreferences().deleteUserInfo();
+              },
+              child: const Text("清除个人信息"))
+        ],
       ),
     );
   }

@@ -1,8 +1,10 @@
+import 'package:card_swiper/card_swiper.dart';
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import 'package:netease_cloud_music_flutter/component/drawer_component.dart';
+import 'package:netease_cloud_music_flutter/component/my_icon.dart';
 import 'package:netease_cloud_music_flutter/http/api/login/api_login.dart';
-import 'package:netease_cloud_music_flutter/http/preferences/user_preferences.dart';
+import 'package:netease_cloud_music_flutter/utils/log_utils.dart';
 import 'package:netease_cloud_music_flutter/widget/pageWidget/base_stateful_widget.dart';
 
 import '../../controller/base_controller.dart';
@@ -18,21 +20,85 @@ class FindPage extends BaseStatefulWidget<FindController> {
   }
 
   @override
+  bool showSearch() {
+    return true;
+  }
+
+  @override
   Widget buildContent(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const Text("发现tap页面"),
-          // Obx(() =>
-          //     Text("${_findController.personT.value.token}")), //getx obs取值示例
-          // Obx(() => Text("${_findController.personT}.token")),
-          ElevatedButton(
-              onPressed: () async {
-                UserPreferences().deleteUserInfo();
-              },
-              child: const Text("清除个人信息"))
-        ],
-      ),
+    return Column(
+      children: [
+        Container(
+          height: 150,
+          // margin: EdgeInsets.all(20),
+          child: Swiper(
+            itemBuilder: (BuildContext context, int index) {
+              return Image.network(
+                "http://via.placeholder.com/350x150",
+                fit: BoxFit.fill,
+              );
+            },
+            itemCount: 3,
+            pagination: SwiperPagination(),
+            control: SwiperControl(),
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Container(
+          height: 100,
+          // width: 1000,
+          child: ListView(
+            children: [
+              FindMyIconWithText(
+                  imgUrl: "assets/icons/button_icon/daily_song_full.svg",
+                  bottomText: "每日推荐",
+                  clickIcon: () {
+                    goMyIconWithTextDetail("每日推荐");
+                  }),
+              FindMyIconWithText(
+                  imgUrl: "assets/icons/button_icon/person_random.svg",
+                  bottomText: "私人漫游",
+                  clickIcon: () {
+                    goMyIconWithTextDetail("私人漫游");
+                  }),
+              FindMyIconWithText(
+                  imgUrl: "assets/icons/button_icon/song_list.svg",
+                  bottomText: "歌单",
+                  clickIcon: () {
+                    goMyIconWithTextDetail("歌单");
+                  }),
+              FindMyIconWithText(
+                  imgUrl: "assets/icons/button_icon/rank_list.svg",
+                  bottomText: "排行榜",
+                  clickIcon: () {
+                    goMyIconWithTextDetail("排行榜");
+                  }),
+              FindMyIconWithText(
+                  imgUrl: "assets/icons/button_icon/album.svg",
+                  bottomText: "数字专辑",
+                  clickIcon: () {
+                    goMyIconWithTextDetail("数字专辑");
+                  }),
+            ],
+            scrollDirection: Axis.horizontal,
+          ),
+        ),
+        Container(
+          child: Row(
+            children: [
+              Text("推荐歌单"),
+              Image(
+                image: AssetImage("assets/icons/button_icon/detail_button.png"),
+                width: 20,
+                height: 20,
+              ),
+            ],
+          ),
+          margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+        )
+      ],
     );
   }
 
@@ -52,6 +118,12 @@ class FindPage extends BaseStatefulWidget<FindController> {
   @override
   Widget indexDrawer() {
     return const DrawerComponent();
+  }
+
+  ///点击FindMyIconWithText跳转
+  void goMyIconWithTextDetail(String routeUrl) {
+    logI("假装已经跳转" + routeUrl);
+    // Get.toNamed(routeUrl);
   }
 }
 

@@ -32,8 +32,8 @@ abstract class BaseStatefulWidget<T extends BaseController>
   ///AppBar生成逻辑
   AppBar? _createAppBar(BuildContext context) {
     if (showTitleBar()) {
-      return createAppBar(
-          titleString(), showBackButton(), appBarActionWidget(context),
+      return createAppBar(titleString(), showBackButton(),
+          appBarActionWidget(context), showSearch(),
           titleWidget: titleWidget());
     } else {
       //不显示TitleBar的页面构建的画面
@@ -78,6 +78,9 @@ abstract class BaseStatefulWidget<T extends BaseController>
 
   ///是否展示titleBar标题栏
   bool showTitleBar() => false;
+
+  ///是否标题位置展示为搜索框
+  bool showSearch() => false;
 
   ///是否展示titleBar标题栏
   bool showDrawer() => false;

@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netease_cloud_music_flutter/component/drawer_component.dart';
 import 'package:netease_cloud_music_flutter/http/api/login/api_login.dart';
+import 'package:netease_cloud_music_flutter/http/preferences/user_preferences.dart';
 import 'package:netease_cloud_music_flutter/page/mine/model/person_info_login_status.dart';
 import 'package:netease_cloud_music_flutter/utils/log_utils.dart';
 import '/page/follow/follow_page.dart';
@@ -17,8 +20,6 @@ import 'page/find/find_page.dart';
 class LoginedPage<T> extends BaseStatefulWidget<LoginedController> {
   LoginedPage({Key? key}) : super(key: key);
 
-  final LoginedController _loginedController = LoginedController();
-
   @override
   bool showDrawer() {
     return true;
@@ -28,7 +29,7 @@ class LoginedPage<T> extends BaseStatefulWidget<LoginedController> {
   Widget buildContent(BuildContext context) {
     return Obx(() => WillPopScope(
         onWillPop: () async {
-          return false;
+          return true;
         },
         child: Scaffold(
           body: KeepAliveWrapper(
@@ -120,8 +121,8 @@ class LoginedController<T> extends BaseController<ApiSer> {
 
   final List<Widget> naviItems = [
     FindPage(),
-    const MinePage(),
-    const FollowPage(),
+    MinePage(),
+    FollowPage(),
   ];
 
   @override
@@ -135,10 +136,10 @@ class LoginedController<T> extends BaseController<ApiSer> {
         ApiSer().getPersonInfoLoginStatus();
     data.then((value) {
       personInfo = value["data"]!;
+      UserPreferences().setUserInfoLoginStatus(jsonEncode(personInfo));
       _nickName = RxString(personInfo.profile!.nickname);
       _imgUrl = RxString(personInfo.profile!.avatarUrl);
       _drawerController.updeteUserInfo(_nickName.value, _imgUrl.value);
-      logI("获取登录状态正常,昵称为" + _nickName.value);
     }).catchError((e) {
       logE("发生异常");
     });
