@@ -1,4 +1,6 @@
 {
     "cmake.configureOnOpen": true,
-    "workbench.tree.indent": 20
+    "workbench.tree.indent": 20,
+    "dart.previewFlutterUiGuides": true,
+    "dart.previewFlutterUiGuidesCustomTracking": true
 }

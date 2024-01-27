@@ -14,6 +14,7 @@ abstract class BaseStatefulWidget<T extends BaseController>
 
   final String? tag = null;
 
+  ///通过泛型获取 controller，不用在每个组件中重新实例化
   T get controller {
     return GetInstance().find<T>(tag: tag);
   }
@@ -62,6 +63,7 @@ abstract class BaseStatefulWidget<T extends BaseController>
   ///构建Scaffold-body主体内容
   Widget buildBody(BuildContext context) {
     if (useLoadSir()) {
+      //这里使用了 obx 包裹，所以组件不需要 obx 包裹了
       return controller.obx((state) => buildContent(context),
           onLoading: Center(
             child: LoadingWidget(),

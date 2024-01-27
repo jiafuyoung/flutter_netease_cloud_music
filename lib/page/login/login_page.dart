@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:netease_cloud_music_flutter/component/drawer_component.dart';
 import 'package:netease_cloud_music_flutter/const/constants.dart';
 import 'package:netease_cloud_music_flutter/controller/base_controller.dart';
-import 'package:netease_cloud_music_flutter/http/api/login/api_login.dart';
+import 'package:netease_cloud_music_flutter/page/login/api/api_login.dart';
 import 'package:netease_cloud_music_flutter/http/preferences/user_preferences.dart';
 import 'package:netease_cloud_music_flutter/utils/log_utils.dart';
 import 'package:netease_cloud_music_flutter/utils/time_util.dart';
@@ -62,7 +62,7 @@ class LoginPage extends BaseStatelessWidget<LoginController> {
   }
 }
 
-class LoginController extends BaseController<ApiSer> {
+class LoginController extends BaseController<ApiLogin> {
   var login = false.obs;
 
   @override

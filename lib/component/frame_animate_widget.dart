@@ -29,7 +29,8 @@ class FrameAnimateState extends State<FrameAnimateWidget> {
     _disposed = false;
     _duration = const Duration(milliseconds: 50);
     _imageIndex = 0;
-    _container = Container(height: widget.height, width: widget.width,color: widget.backColor);
+    _container = Container(
+        height: widget.height, width: widget.width, color: widget.backColor);
     _updateImage();
   }
 

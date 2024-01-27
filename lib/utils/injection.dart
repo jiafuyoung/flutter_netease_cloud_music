@@ -1,6 +1,7 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:get/get.dart';
-import 'package:netease_cloud_music_flutter/http/api/login/api_login.dart';
+import 'package:netease_cloud_music_flutter/page/find/api/api_find.dart';
+import 'package:netease_cloud_music_flutter/page/login/api/api_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 ///初始化注入对象
@@ -9,7 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Injection extends GetxService {
   Future<void> init() async {
     await Get.putAsync(() => SharedPreferences.getInstance());
-    Get.lazyPut(() => ApiSer(), fenix: true);
+    Get.lazyPut(() => ApiLogin(), fenix: true);
+    Get.lazyPut(() => ApiFind(), fenix: true);
     Get.lazyPut(() => EventBus(), fenix: true);
   }
 }

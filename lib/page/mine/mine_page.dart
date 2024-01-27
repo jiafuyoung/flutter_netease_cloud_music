@@ -4,11 +4,10 @@ import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:netease_cloud_music_flutter/component/drawer_component.dart";
 import "package:netease_cloud_music_flutter/controller/base_controller.dart";
-import "package:netease_cloud_music_flutter/http/api/login/api_login.dart";
+import 'package:netease_cloud_music_flutter/page/login/api/api_login.dart';
 import "package:netease_cloud_music_flutter/http/preferences/user_preferences.dart";
 import "package:netease_cloud_music_flutter/page/mine/model/person_info.dart";
 import "package:netease_cloud_music_flutter/page/mine/model/person_info_login_status.dart";
-import "package:netease_cloud_music_flutter/utils/log_utils.dart";
 import 'package:netease_cloud_music_flutter/widget/pageWidget/base_stateful_widget.dart';
 
 class MinePage extends BaseStatefulWidget<MineController> {
@@ -50,7 +49,7 @@ class MinePage extends BaseStatefulWidget<MineController> {
   }
 }
 
-class MineController extends BaseController<ApiSer> {
+class MineController extends BaseController<ApiLogin> {
   String _title = "我的";
 
   @override

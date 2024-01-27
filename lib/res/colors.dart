@@ -15,9 +15,6 @@ class ColorStyle {
   static const color_D9E1FB = Color(0xFFD9E1FB);
   static const color_89A3F0 = Color(0xFF89A3F0);
 
-
-
-
   static const color_24CF5F = Color(0xFF24CF5F);
   static const color_FBE240 = Color(0xFFFBE240);
   static const color_FFAE2E = Color(0xFFFFAE2E);

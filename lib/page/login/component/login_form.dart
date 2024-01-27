@@ -3,7 +3,7 @@ import 'dart:convert';
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
 import 'package:netease_cloud_music_flutter/const/api_constant.dart';
-import 'package:netease_cloud_music_flutter/http/api/login/api_login.dart';
+import 'package:netease_cloud_music_flutter/page/login/api/api_login.dart';
 import 'package:netease_cloud_music_flutter/http/preferences/user_preferences.dart';
 import '../../../const/constants.dart';
 import '../../../utils/log_utils.dart';
@@ -75,7 +75,7 @@ class _LoginformState extends State<LoginForm> {
 
               Future<PersonInfo> personInfo =
                   // ApiSer().getPersonInfo(phone, password);
-                  ApiSer().getPersonInfo(phone, password);
+                  ApiLogin().getPersonInfo(phone, password);
               personInfo.then((t) {
                 if (t.code == ApiConstant.API_SUCESS) {
                   ///code符合成功则跳转登录页

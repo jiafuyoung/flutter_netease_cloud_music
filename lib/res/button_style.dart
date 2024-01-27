@@ -1,21 +1,17 @@
-
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
 
-
-
 /// @class : ButtonStyles
 
 /// @description :ButtonStyles样式
-class ButtonStyles{
-
+class ButtonStyles {
   /// Button公共样式，默认点击效果
   /// [ButtonStyle]
-  static ButtonStyle getButtonStyle(){
+  static ButtonStyle getButtonStyle() {
     return ButtonStyle(
       overlayColor: MaterialStateProperty.all(ColorStyle.color_E2E3E8_33),
-      animationDuration:const Duration(milliseconds: 200),
+      animationDuration: const Duration(milliseconds: 200),
       padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
       shape: MaterialStateProperty.all(const StadiumBorder()),
     );
@@ -23,19 +19,18 @@ class ButtonStyles{
 
   /// Button公共样式，无点击效果
   /// [ButtonStyle]
-  static ButtonStyle getTransparentStyle(){
+  static ButtonStyle getTransparentStyle() {
     return ButtonStyle(
       overlayColor: MaterialStateProperty.all(Colors.transparent),
     );
   }
 
-
   /// Button公共样式，无圆角
   /// [ButtonStyle]
-  static ButtonStyle getNoShapeStyle(){
+  static ButtonStyle getNoShapeStyle() {
     return ButtonStyle(
-      shadowColor: MaterialStateProperty.all( ColorStyle.colorShadow),
-      animationDuration:const Duration(milliseconds: 200),
+      shadowColor: MaterialStateProperty.all(ColorStyle.colorShadow),
+      animationDuration: const Duration(milliseconds: 200),
       padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
     );
   }

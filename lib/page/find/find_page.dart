@@ -1,9 +1,11 @@
 import 'package:card_swiper/card_swiper.dart';
 import "package:flutter/material.dart";
+import 'package:flutter_svg/svg.dart';
 import "package:get/get.dart";
 import 'package:netease_cloud_music_flutter/component/drawer_component.dart';
 import 'package:netease_cloud_music_flutter/component/my_icon.dart';
-import 'package:netease_cloud_music_flutter/http/api/login/api_login.dart';
+import 'package:netease_cloud_music_flutter/page/find/api/api_find.dart';
+import 'package:netease_cloud_music_flutter/page/find/recommend_song_list/recommend.dart';
 import 'package:netease_cloud_music_flutter/utils/log_utils.dart';
 import 'package:netease_cloud_music_flutter/widget/pageWidget/base_stateful_widget.dart';
 
@@ -52,31 +54,35 @@ class FindPage extends BaseStatefulWidget<FindController> {
           child: ListView(
             children: [
               FindMyIconWithText(
-                  imgUrl: "assets/icons/button_icon/daily_song_full.svg",
+                  img: SvgPicture.asset(
+                      "assets/icons/button_icon/daily_song_full.svg"),
                   bottomText: "每日推荐",
                   clickIcon: () {
                     goMyIconWithTextDetail("每日推荐");
                   }),
               FindMyIconWithText(
-                  imgUrl: "assets/icons/button_icon/person_random.svg",
+                  img: SvgPicture.asset(
+                      "assets/icons/button_icon/person_random.svg"),
                   bottomText: "私人漫游",
                   clickIcon: () {
                     goMyIconWithTextDetail("私人漫游");
                   }),
               FindMyIconWithText(
-                  imgUrl: "assets/icons/button_icon/song_list.svg",
+                  img: SvgPicture.asset(
+                      "assets/icons/button_icon/song_list.svg"),
                   bottomText: "歌单",
                   clickIcon: () {
                     goMyIconWithTextDetail("歌单");
                   }),
               FindMyIconWithText(
-                  imgUrl: "assets/icons/button_icon/rank_list.svg",
+                  img: SvgPicture.asset(
+                      "assets/icons/button_icon/rank_list.svg"),
                   bottomText: "排行榜",
                   clickIcon: () {
                     goMyIconWithTextDetail("排行榜");
                   }),
               FindMyIconWithText(
-                  imgUrl: "assets/icons/button_icon/album.svg",
+                  img: SvgPicture.asset("assets/icons/button_icon/album.svg"),
                   bottomText: "数字专辑",
                   clickIcon: () {
                     goMyIconWithTextDetail("数字专辑");
@@ -86,7 +92,7 @@ class FindPage extends BaseStatefulWidget<FindController> {
           ),
         ),
         Container(
-          child: Row(
+          child: const Row(
             children: [
               Text("推荐歌单"),
               Image(
@@ -96,8 +102,51 @@ class FindPage extends BaseStatefulWidget<FindController> {
               ),
             ],
           ),
-          margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+          margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        ),
+        SizedBox(
+          child: ListView.builder(
+            itemBuilder: (context, index) {
+              logI("开始渲染");
+              return FindMyIconWithText(
+                  img: Image(
+                    image: NetworkImage(
+                        controller.recommendList[index].creator.avatarUrl),
+                  ),
+                  bottomText: controller.recommendList[index].name);
+            },
+            itemCount: 7,
+            scrollDirection: Axis.horizontal,
+          ),
+          height: 200,
         )
+        // Container(
+        //   child: FutureBuilder(
+        //       future: controller.recommend,
+        //       builder: ((context, snapshot) {
+        //         if (snapshot.connectionState == ConnectionState.waiting) {
+        //           return const CircularProgressIndicator();
+        //         } else if (snapshot.hasError) {
+        //           return const Text("获取推荐列表发生错误");
+        //         } else {
+        //           return ListView.builder(
+        //             itemBuilder: (context, index) {
+        //               logI("开始渲染");
+        //               List<Recommend> recomaandList = snapshot.data!.recommend;
+        //               return FindMyIconWithText(
+        //                   img: Image(
+        //                     image: NetworkImage(
+        //                         recomaandList[index].creator!.avatarUrl),
+        //                   ),
+        //                   bottomText: recomaandList[index].name);
+        //             },
+        //             itemCount: 7,
+        //             scrollDirection: Axis.horizontal,
+        //           );
+        //         }
+        //       })),
+        //   height: 200,
+        // )
       ],
     );
   }
@@ -127,16 +176,26 @@ class FindPage extends BaseStatefulWidget<FindController> {
   }
 }
 
-class FindController extends BaseController<ApiSer> {
+class FindController extends BaseController<ApiFind> {
+  RxList<Recommend> recommendList = <Recommend>[].obs;
+
   @override
-  void loadNet() {
-    showSuccess();
+  void loadNet() async {
+    httpRequest(ApiFind().getRecommendSongList(), (value) {
+      recommendList.addAll(value.recommend ?? []);
+    });
+  }
+
+  @override
+  void onInit() {
+    loadNet();
+    super.onInit();
   }
 
   @override
   void onReady() async {
     super.onReady();
-    loadNet();
+    showSuccess();
   }
 
   @override

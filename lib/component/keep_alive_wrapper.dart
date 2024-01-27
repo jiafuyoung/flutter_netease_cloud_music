@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 ///参照Flutter实战·第二版实现
 ///https://book.flutterchina.club/chapter6/keepalive.html#_6-8-2-keepalivewrapper
 class KeepAliveWrapper extends StatefulWidget {
@@ -26,7 +25,7 @@ class _KeepAliveWrapperState extends State<KeepAliveWrapper>
 
   @override
   void didUpdateWidget(covariant KeepAliveWrapper oldWidget) {
-    if(oldWidget.keepAlive != widget.keepAlive) {
+    if (oldWidget.keepAlive != widget.keepAlive) {
       // keepAlive 状态需要更新，实现在 AutomaticKeepAliveClientMixin 中
       updateKeepAlive();
     }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class MyIcon extends StatelessWidget {
   final String imgUrl;
@@ -17,16 +18,13 @@ class MyIcon extends StatelessWidget {
 }
 
 class FindMyIconWithText extends StatelessWidget {
-  final String imgUrl;
+  final Widget img;
   final String bottomText;
   //父组件传入的方法【类型定义为VoidCallback而不是 function】
   final VoidCallback? clickIcon;
 
   FindMyIconWithText(
-      {Key? key,
-      required this.imgUrl,
-      required this.bottomText,
-      this.clickIcon})
+      {Key? key, required this.img, required this.bottomText, this.clickIcon})
       : super(key: key);
 
   @override
@@ -38,7 +36,7 @@ class FindMyIconWithText extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              child: SvgPicture.asset(imgUrl),
+              child: img,
               width: 50,
               height: 50,
             ),

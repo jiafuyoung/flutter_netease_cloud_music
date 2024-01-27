@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netease_cloud_music_flutter/component/drawer_component.dart';
-import 'package:netease_cloud_music_flutter/http/api/login/api_login.dart';
+import 'package:netease_cloud_music_flutter/page/login/api/api_login.dart';
 import 'package:netease_cloud_music_flutter/http/preferences/user_preferences.dart';
 import 'package:netease_cloud_music_flutter/page/mine/model/person_info_login_status.dart';
 import 'package:netease_cloud_music_flutter/utils/log_utils.dart';
@@ -108,7 +108,7 @@ class LoginedPage<T> extends BaseStatefulWidget<LoginedController> {
   // }
 }
 
-class LoginedController<T> extends BaseController<ApiSer> {
+class LoginedController<T> extends BaseController<ApiLogin> {
   DateTime? lastPopTime;
   final RxInt _curPage = 0.obs;
   final PageController _pageController = PageController(initialPage: 0);
@@ -133,7 +133,7 @@ class LoginedController<T> extends BaseController<ApiSer> {
   @override
   void loadNet() {
     Future<Map<String, PersonInfoLoginStatus>> data =
-        ApiSer().getPersonInfoLoginStatus();
+        ApiLogin().getPersonInfoLoginStatus();
     data.then((value) {
       personInfo = value["data"]!;
       UserPreferences().setUserInfoLoginStatus(jsonEncode(personInfo));

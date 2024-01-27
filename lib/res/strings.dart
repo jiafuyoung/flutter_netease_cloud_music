@@ -1,5 +1,3 @@
-
-
 ///字符串常量管理
 class StringStyles {
   static const String appName = 'appName';

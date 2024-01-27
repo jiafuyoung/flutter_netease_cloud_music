@@ -16,6 +16,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
   final DrawerComponentController _drawerController = Get.find();
   @override
   Widget build(BuildContext context) {
+    //因为没有继承那个需要状态的通用 widget，所以需要写 obx
     return Obx(() => Drawer(
         backgroundColor: Color.fromRGBO(245, 245, 245, 1),
         child: Column(

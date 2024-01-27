@@ -1,5 +1,3 @@
-
-
 class CommonConstant {
   ///*************************MethodChannel变量****************************///
 
@@ -21,14 +19,8 @@ class CommonConstant {
 
   ///*************************MethodChannel_方法变量****************************///
 
-///常用字段
- static const UUID = "3e7ee30c6fc0004a773dc33b0597b5732b145c04";
+  ///常用字段
+  static const UUID = "3e7ee30c6fc0004a773dc33b0597b5732b145c04";
 
- static const DEVICE_NUM = "ONEPLUS%20A6000";
-
-
-
-
-
-
+  static const DEVICE_NUM = "ONEPLUS%20A6000";
 }

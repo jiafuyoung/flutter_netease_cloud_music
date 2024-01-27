@@ -32,6 +32,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
+  ///设置并启用Dart：Preview Flutter Ui Guides选项。这样可以很容易地发现代码中的父子关系，这在UI文件中有许多嵌套小部件时尤其有用。
   @override
   Widget build(BuildContext context) {
     return RefreshConfiguration(

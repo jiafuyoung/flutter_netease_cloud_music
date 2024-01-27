@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import 'package:netease_cloud_music_flutter/component/drawer_component.dart';
-import 'package:netease_cloud_music_flutter/http/api/login/api_login.dart';
+import 'package:netease_cloud_music_flutter/page/login/api/api_login.dart';
 
 import '../../controller/base_controller.dart';
 import '../../http/preferences/user_preferences.dart';
@@ -49,7 +49,7 @@ class FollowPage extends BaseStatefulWidget<FollowController> {
   }
 }
 
-class FollowController extends BaseController<ApiSer> {
+class FollowController extends BaseController<ApiLogin> {
   @override
   void loadNet() {
     showSuccess();
