@@ -1,6 +1,5 @@
 import 'package:card_swiper/card_swiper.dart';
 import "package:flutter/material.dart";
-import 'package:flutter_svg/svg.dart';
 import "package:get/get.dart";
 import 'package:netease_cloud_music_flutter/component/drawer_component.dart';
 import 'package:netease_cloud_music_flutter/component/my_icon.dart';
@@ -28,6 +27,11 @@ class FindPage extends BaseStatefulWidget<FindController> {
 
   @override
   Widget buildContent(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final svgLength = size.width * 0.25;
+    final picLength = size.width * 0.3;
+    const picTextHeight = 40.0;
+    const svgTextHeight = 20.0;
     return Column(
       children: [
         Container(
@@ -41,53 +45,34 @@ class FindPage extends BaseStatefulWidget<FindController> {
               );
             },
             itemCount: 3,
-            pagination: SwiperPagination(),
-            control: SwiperControl(),
+            pagination: const SwiperPagination(),
+            control: const SwiperControl(),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Container(
-          height: 100,
-          // width: 1000,
-          child: ListView(
-            children: [
-              FindMyIconWithText(
-                  img: SvgPicture.asset(
-                      "assets/icons/button_icon/daily_song_full.svg"),
-                  bottomText: "每日推荐",
-                  clickIcon: () {
-                    goMyIconWithTextDetail("每日推荐");
-                  }),
-              FindMyIconWithText(
-                  img: SvgPicture.asset(
-                      "assets/icons/button_icon/person_random.svg"),
-                  bottomText: "私人漫游",
-                  clickIcon: () {
-                    goMyIconWithTextDetail("私人漫游");
-                  }),
-              FindMyIconWithText(
-                  img: SvgPicture.asset(
-                      "assets/icons/button_icon/song_list.svg"),
-                  bottomText: "歌单",
-                  clickIcon: () {
-                    goMyIconWithTextDetail("歌单");
-                  }),
-              FindMyIconWithText(
-                  img: SvgPicture.asset(
-                      "assets/icons/button_icon/rank_list.svg"),
-                  bottomText: "排行榜",
-                  clickIcon: () {
-                    goMyIconWithTextDetail("排行榜");
-                  }),
-              FindMyIconWithText(
-                  img: SvgPicture.asset("assets/icons/button_icon/album.svg"),
-                  bottomText: "数字专辑",
-                  clickIcon: () {
-                    goMyIconWithTextDetail("数字专辑");
-                  }),
-            ],
+          height: svgLength + svgTextHeight,
+          child: ListView.builder(
+            itemBuilder: (context, index) {
+              Map<String, String> map = controller.data[index];
+              return FindPicWithText(
+                pic: FindImportantEntrySvg(
+                  img: map['img']!,
+                  sideLength: svgLength,
+                ),
+                text: FindTextBelowEntrySvg(
+                  text: map['bottomText']!,
+                  textHeight: svgTextHeight,
+                  textWidth: svgLength,
+                ),
+                clickIcon: () {
+                  goMyIconWithTextDetail(map['bottomText']!);
+                },
+              );
+            },
+            itemCount: controller.data.length,
             scrollDirection: Axis.horizontal,
           ),
         ),
@@ -102,51 +87,34 @@ class FindPage extends BaseStatefulWidget<FindController> {
               ),
             ],
           ),
-          margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+          margin: const EdgeInsets.fromLTRB(20, 15, 20, 7),
         ),
-        SizedBox(
+        Container(
+          height: picLength + picTextHeight,
           child: ListView.builder(
+            ///设置滚动控制器
+            controller: controller.scrollController,
             itemBuilder: (context, index) {
-              logI("开始渲染");
-              return FindMyIconWithText(
-                  img: Image(
-                    image: NetworkImage(
-                        controller.recommendList[index].creator.avatarUrl),
-                  ),
-                  bottomText: controller.recommendList[index].name);
+              return FindPicWithText(
+                pic: FindSongListPic(
+                  img: controller.recommendList[index].creator.avatarUrl,
+                  sideLength: picLength,
+                ),
+                text: FindTextBelowPic(
+                  text: controller.recommendList[index].name,
+                  textHeight: picTextHeight,
+                  textWidth: svgLength,
+                ),
+                clickIcon: () {
+                  goMyIconWithTextDetail(controller.recommendList[index].name);
+                },
+              );
             },
             itemCount: 7,
             scrollDirection: Axis.horizontal,
           ),
-          height: 200,
+          padding: const EdgeInsets.only(left: 20),
         )
-        // Container(
-        //   child: FutureBuilder(
-        //       future: controller.recommend,
-        //       builder: ((context, snapshot) {
-        //         if (snapshot.connectionState == ConnectionState.waiting) {
-        //           return const CircularProgressIndicator();
-        //         } else if (snapshot.hasError) {
-        //           return const Text("获取推荐列表发生错误");
-        //         } else {
-        //           return ListView.builder(
-        //             itemBuilder: (context, index) {
-        //               logI("开始渲染");
-        //               List<Recommend> recomaandList = snapshot.data!.recommend;
-        //               return FindMyIconWithText(
-        //                   img: Image(
-        //                     image: NetworkImage(
-        //                         recomaandList[index].creator!.avatarUrl),
-        //                   ),
-        //                   bottomText: recomaandList[index].name);
-        //             },
-        //             itemCount: 7,
-        //             scrollDirection: Axis.horizontal,
-        //           );
-        //         }
-        //       })),
-        //   height: 200,
-        // )
       ],
     );
   }
@@ -178,10 +146,40 @@ class FindPage extends BaseStatefulWidget<FindController> {
 
 class FindController extends BaseController<ApiFind> {
   RxList<Recommend> recommendList = <Recommend>[].obs;
+  List<Map<String, String>> data = [
+    {
+      "img": "assets/icons/button_icon/daily_song_full.svg",
+      "bottomText": "每日推荐",
+      "routerUrl": "每日推荐"
+    },
+    {
+      "img": "assets/icons/button_icon/person_random.svg",
+      "bottomText": "私人漫游",
+      "routerUrl": "私人漫游"
+    },
+    {
+      "img": "assets/icons/button_icon/song_list.svg",
+      "bottomText": "歌单",
+      "routerUrl": "歌单"
+    },
+    {
+      "img": "assets/icons/button_icon/rank_list.svg",
+      "bottomText": "排行榜",
+      "routerUrl": "排行榜"
+    },
+    {
+      "img": "assets/icons/button_icon/album.svg",
+      "bottomText": "数字专辑",
+      "routerUrl": "数字专辑"
+    }
+  ];
+
+  ScrollController scrollController = ScrollController();
 
   @override
   void loadNet() async {
     httpRequest(ApiFind().getRecommendSongList(), (value) {
+      data[1];
       recommendList.addAll(value.recommend ?? []);
     });
   }
@@ -189,6 +187,7 @@ class FindController extends BaseController<ApiFind> {
   @override
   void onInit() {
     loadNet();
+    addSongListListener();
     super.onInit();
   }
 
@@ -200,7 +199,21 @@ class FindController extends BaseController<ApiFind> {
 
   @override
   void onHidden() {
-    // TODO: implement onHidden
+    logI("触发onHidden");
+  }
+
+  void addSongListListener() {
+    /// 为滚动控制器添加监听
+    scrollController.addListener(() {
+      /// _scrollController.position.pixels 是当前像素点位置
+      /// _scrollController.position.maxScrollExtent 当前列表最大可滚动位置
+      /// 如果二者相等 , 那么就触发上拉加载更多机制
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        /// 触发上拉加载更多机制
+        logI("拉到头了");
+      }
+    });
   }
 }
 
