@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:netease_cloud_music_flutter/component/my_icon.dart';
+import 'package:netease_cloud_music_flutter/component/find_component.dart';
 
 class DrawerComponent extends StatefulWidget {
   const DrawerComponent({Key? key}) : super(key: key);

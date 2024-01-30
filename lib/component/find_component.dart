@@ -137,3 +137,109 @@ class FindTextBelowPic extends StatelessWidget {
     );
   }
 }
+
+class FunctionTitle extends StatelessWidget {
+  final VoidCallback? clickIcon;
+  final String text;
+
+  const FunctionTitle({
+    Key? key,
+    required this.clickIcon,
+    required this.text,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: clickIcon,
+      child: SizedBox(
+        child: Row(
+          children: [
+            Text(
+              text,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const Image(
+              image: AssetImage("assets/icons/button_icon/detail_button.png"),
+              width: 20,
+              height: 20,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class FindRankList extends StatelessWidget {
+  final VoidCallback? clickIcon;
+
+  final String imgUrl;
+
+  final String text1;
+  final String text2;
+  final String text3;
+  const FindRankList(
+      {Key? key,
+      this.clickIcon,
+      required this.imgUrl,
+      required this.text1,
+      required this.text2,
+      required this.text3})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: clickIcon,
+      child: SizedBox(
+        height: 60,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image(width: 50, height: 50, image: NetworkImage(imgUrl)),
+            SizedBox(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    text1,
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  Text(text2,
+                      style: const TextStyle(fontSize: 14, color: Colors.red))
+                ],
+              ),
+              height: 50,
+            ),
+            Text(text3)
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class FindRankListBox extends StatelessWidget {
+  const FindRankListBox(
+      {Key? key, required this.rankListTitle, required this.rankList})
+      : super(key: key);
+  final Widget rankListTitle;
+  final Widget rankList;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: SizedBox(
+          child: Card(
+        child: Column(
+          children: [
+            rankListTitle,
+            rankList,
+          ],
+        ),
+      )),
+    );
+  }
+}
