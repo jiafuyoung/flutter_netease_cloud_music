@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:get/get.dart';
-import 'package:netease_cloud_music_flutter/ext/get_extension.dart';
+import 'package:netease_cloud_music_flutter/utils/get_extension.dart';
 
 import '../http/app_except.dart';
 import '../http/result/base_result.dart';
@@ -21,7 +21,11 @@ abstract class BaseController<M> extends SuperController with ToastMixin {
   @override
   void onInit() {
     super.onInit();
-    logD('>>>>>>>onInit');
+    try {
+      api = Get.find<M>();
+    } catch (e) {
+      logE(e.toString());
+    }
   }
 
   void loadNet();
@@ -157,11 +161,6 @@ abstract class BaseController<M> extends SuperController with ToastMixin {
     logD('>>>>>>>onReady');
     if (useEventBus()) {
       eventBus = Get.find<EventBus>();
-    }
-    try {
-      api = Get.find<M>();
-    } catch (e) {
-      logE(e.toString());
     }
     // loadNet();
   }

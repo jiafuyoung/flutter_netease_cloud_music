@@ -47,9 +47,12 @@ dependencies:
   fijkplayer: ^0.11.0
   #  图片缓存加载框架
   cached_network_image: ^3.2.0
-  extended_image: ^4.0.0
+  extended_image: ^8.2.0
   #保持常亮——唤醒锁 (wakelock)
   wakelock: ^0.6.2
+  audioplayers: ^5.2.1
+  provider: ^6.1.1
+  common_utils: ^2.1.0
 
 dev_dependencies:
     build_runner: any
@@ -62,6 +65,7 @@ flutter:
   # 添加图片资源文件夹
   assets:
     - assets/images/
+    - images/
     - assets/icons/
     - assets/icons/button_icon/
     - assets/images/loading/

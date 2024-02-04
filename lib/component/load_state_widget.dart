@@ -61,54 +61,6 @@ AppBar createAppBar(String titleString, bool showBackButton,
   );
 }
 
-///构建侧边栏内容
-Widget createIndexDrawer(String userName, String imgUrl) => Drawer(
-      child: Column(
-        children: [
-          DrawerHeader(child: createIndexDrawerHeader(userName, imgUrl)),
-          ListTile(
-            leading: Text("lead"),
-            title: Text("侧边栏 2"),
-          ),
-          ListTile(
-            title: Text("this "),
-          ),
-        ],
-      ),
-    );
-
-///构建侧边栏head内容
-DrawerHeader? createIndexDrawerHeader(String userName, String imgUrl) =>
-    DrawerHeader(
-      child: Row(
-        children: [
-          Expanded(
-              child: Image(
-            image: NetworkImage(imgUrl),
-            width: 30,
-            height: 30,
-          )), //头像
-          Text(userName),
-          Expanded(
-              child: Image(
-            image: AssetImage("assets/icons/button_icon/detail_button.png"),
-            width: 30,
-            height: 30,
-          )), //可点击详细信息的图标
-          Expanded(
-              child: Image(
-            image: AssetImage("assets/icons/button_icon/scan_code.png"),
-            width: 30,
-            height: 30,
-          )), //扫码按钮
-        ],
-      ),
-      // padding: EdgeInsets.fromLTRB(40, 40, 40, 40),
-      decoration: BoxDecoration(
-          color: Colors.grey,
-          borderRadius: BorderRadius.all(Radius.circular(20))),
-    ); //上下左右内边距
-
 ///标题文本组件
 Widget titleView(String titleString) {
   return Text(
@@ -121,23 +73,24 @@ Widget titleView(String titleString) {
 Widget searchView() {
   return Row(children: [
     Container(
-      child: const Row(
+      child: Row(
         children: [
-          MyIcon(imgUrl: "assets/icons/button_icon/search.png"),
-          Text("搜索")
+          Container(
+            child: MyIcon(imgUrl: "assets/icons/button_icon/search.png"),
+            padding: EdgeInsets.all(2),
+          ),
+          Text(
+            "搜索",
+            style: TextStyle(fontSize: 18, color: Colors.grey),
+          )
         ],
       ),
-      width: 280,
+      width: 320,
       height: 30,
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(30))),
     ),
-    SizedBox(
-      child: MyIcon(imgUrl: "assets/icons/button_icon/mic_phone.png"),
-      height: 30,
-      width: 30,
-    )
   ]);
 }
 

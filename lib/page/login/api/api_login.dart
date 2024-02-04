@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:netease_cloud_music_flutter/const/config/http_config.dart';
 import 'package:netease_cloud_music_flutter/http/dio_client.dart';
-import 'package:netease_cloud_music_flutter/page/mine/model/person_info.dart';
-import 'package:netease_cloud_music_flutter/page/mine/model/person_info_login_status.dart';
+import 'package:netease_cloud_music_flutter/page/mine/model/personinfo/person_info.dart';
+import 'package:netease_cloud_music_flutter/page/mine/model/personinfo/person_info_login_status.dart';
 import 'package:retrofit/http.dart';
 
 part 'api_login.g.dart';

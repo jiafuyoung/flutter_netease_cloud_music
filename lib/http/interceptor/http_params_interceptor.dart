@@ -24,11 +24,13 @@ class HttpParamsInterceptor extends Interceptor {
     var cookie = await UserPreferences().getCookies();
 
     if (options.method == METHOD_GET) {
+      // if (cookie != "") {
       options.path = options.path + "?cookie=" + cookie.toString();
+      // }
     } else {
       body["cookie"] = cookie.toString();
     }
-
+    // headers["cookie"] = cookie.toString();
     headers["token"] =
         "MHRYOVRHbEZBL1M0anlXRTdrYWY3Z2hpL1hzWFNZTTh4dWI1NXdKdjRFTG1obUhrN1hjbnJieDlZUnUwT1ArWkRkbmp0ajdIR3dpU1dSdGJRTFRnNnZUZEtwV1dIQWpxSWFORjNUU3JsRzA9";
 

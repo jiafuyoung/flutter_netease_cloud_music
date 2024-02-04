@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -190,6 +191,7 @@ class FindRankList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: clickIcon,
       child: SizedBox(
@@ -197,7 +199,13 @@ class FindRankList extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image(width: 50, height: 50, image: NetworkImage(imgUrl)),
+            SizedBox(
+              child: ClipRRect(
+                child:
+                    CachedNetworkImage(width: 50, height: 50, imageUrl: imgUrl),
+                borderRadius: const BorderRadius.all(Radius.circular(5)),
+              ),
+            ),
             SizedBox(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -205,15 +213,21 @@ class FindRankList extends StatelessWidget {
                   Text(
                     text1,
                     style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.ellipsis),
                   ),
                   Text(text2,
                       style: const TextStyle(fontSize: 14, color: Colors.red))
                 ],
               ),
               height: 50,
+              width: size.width * 0.5,
             ),
-            Text(text3)
+            SizedBox(
+              child: Text(text3),
+              width: size.width * 0.1,
+            )
           ],
         ),
       ),

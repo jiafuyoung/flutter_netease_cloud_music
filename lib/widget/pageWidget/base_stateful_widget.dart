@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:netease_cloud_music_flutter/page/mine/model/person_info_login_status.dart';
+import 'package:netease_cloud_music_flutter/page/mine/model/personinfo/person_info_login_status.dart';
 
 import '../../controller/base_controller.dart';
 import '../../utils/mixin/toast/toast_mixin.dart';
@@ -33,8 +33,8 @@ abstract class BaseStatefulWidget<T extends BaseController>
   ///AppBar生成逻辑
   AppBar? _createAppBar(BuildContext context) {
     if (showTitleBar()) {
-      return createAppBar(titleString(), showBackButton(),
-          appBarActionWidget(context), showSearch(),
+      return createAppBar(
+          titleString(), showBackButton(), appBarActionWidget(), showSearch(),
           titleWidget: titleWidget());
     } else {
       //不显示TitleBar的页面构建的画面
@@ -56,9 +56,7 @@ abstract class BaseStatefulWidget<T extends BaseController>
   }
 
   ///创建AppBar ActionView
-  List<Widget>? appBarActionWidget(BuildContext context) {
-    return null;
-  }
+  List<Widget>? appBarActionWidget() => null;
 
   ///构建Scaffold-body主体内容
   Widget buildBody(BuildContext context) {
@@ -84,6 +82,13 @@ abstract class BaseStatefulWidget<T extends BaseController>
   ///是否标题位置展示为搜索框
   bool showSearch() => false;
 
+  //title 类型
+  int titleType() => -1;
+  //title 类型
+  int backType() => -1;
+  //行为类型
+  int actionType() => -1;
+
   ///是否展示titleBar标题栏
   bool showDrawer() => false;
 
@@ -93,7 +98,7 @@ abstract class BaseStatefulWidget<T extends BaseController>
   //标题栏title的通用Widget样式
   Widget? titleWidget() => null;
 
-  Widget indexDrawer() => createIndexDrawer("默认", "默认");
+  Widget indexDrawer() => Container();
 
   ///是否开启加载状态
   bool useLoadSir() => true;
@@ -115,6 +120,7 @@ class AutoDisposeState<T extends GetxController>
     extends State<BaseStatefulWidget>
     with
         AutomaticKeepAliveClientMixin<BaseStatefulWidget>,
+        TickerProviderStateMixin,
         WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {

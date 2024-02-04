@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:netease_cloud_music_flutter/utils/log_utils.dart';
 
 /// Default builder generate default [FijkPanel] UI
 Widget simpleFijkPanelBuilder(FijkPlayer player, FijkData data,
@@ -223,7 +224,7 @@ class _DefaultFijkPanelState extends State<_DefaultFijkPanel> {
                         onChangeEnd: (v) {
                           setState(() {
                             player.seekTo(v.toInt());
-                            LogD("seek to $v");
+                            logD("seek to $v");
                             _currentPos =
                                 Duration(milliseconds: _seekPos.toInt());
                             _seekPos = -1;

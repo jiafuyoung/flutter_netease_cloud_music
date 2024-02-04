@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:netease_cloud_music_flutter/const/config/http_config.dart';
 import 'package:netease_cloud_music_flutter/http/dio_client.dart';
-import 'package:netease_cloud_music_flutter/page/find/banner_data/banner_data.dart';
-import 'package:netease_cloud_music_flutter/page/find/rank_song_list/rank_song_list.dart';
-import 'package:netease_cloud_music_flutter/page/find/top_list/top_list.dart';
+import 'package:netease_cloud_music_flutter/page/find/model/banner_data/banner_data.dart';
+import 'package:netease_cloud_music_flutter/page/find/model/rank_song_list/rank_song_list.dart';
+import 'package:netease_cloud_music_flutter/page/find/model/top_list/top_list.dart';
 import 'package:retrofit/http.dart';
 
-import '../recommend_song_list/recommend_song_list.dart';
+import '../model/recommend_song_list/recommend_song_list.dart';
 
 part 'api_find.g.dart';
 
@@ -17,7 +17,6 @@ part 'api_find.g.dart';
 abstract class ApiFind {
   factory ApiFind({Dio? dio, String? baseUrl}) {
     dio = DioClient().dio;
-
     return _ApiFind(dio, baseUrl: HttpConfig.baseUrl);
   }
 

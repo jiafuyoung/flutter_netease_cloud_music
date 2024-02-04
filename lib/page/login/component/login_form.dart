@@ -7,7 +7,7 @@ import 'package:netease_cloud_music_flutter/page/login/api/api_login.dart';
 import 'package:netease_cloud_music_flutter/http/preferences/user_preferences.dart';
 import '../../../const/constants.dart';
 import '../../../utils/log_utils.dart';
-import '../../mine/model/person_info.dart';
+import '../../mine/model/personinfo/person_info.dart';
 
 //登录表单组件
 class LoginForm extends StatefulWidget {

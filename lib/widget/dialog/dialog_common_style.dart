@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../ext/get_extension.dart';
+import '../../utils/get_extension.dart';
 import '../../res/button_style.dart';
 import '../../res/style.dart';
 import '../../widget/behavior/over_scroll_behavior.dart';

@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netease_cloud_music_flutter/component/drawer_component.dart';
 import 'package:netease_cloud_music_flutter/page/login/api/api_login.dart';
 import 'package:netease_cloud_music_flutter/http/preferences/user_preferences.dart';
-import 'package:netease_cloud_music_flutter/page/mine/model/person_info_login_status.dart';
+import 'package:netease_cloud_music_flutter/page/mine/model/personinfo/person_info_login_status.dart';
 import 'package:netease_cloud_music_flutter/utils/log_utils.dart';
 import '/page/follow/follow_page.dart';
 import 'page/mine/mine_page.dart';
@@ -18,19 +19,12 @@ import 'page/find/find_page.dart';
 //继承自己写的BaseStatefulWidget类，重写buildContent方法
 //登录成功后的页面，点击 tap 跳转并不是路由跳转，所以 另外三个页面showTitleBar不对父亲层级生效
 class LoginedPage<T> extends BaseStatefulWidget<LoginedController> {
-  LoginedPage({Key? key}) : super(key: key);
-
-  @override
-  bool showDrawer() {
-    return true;
-  }
+  const LoginedPage({Key? key}) : super(key: key);
 
   @override
   Widget buildContent(BuildContext context) {
-    return Obx(() => WillPopScope(
-        onWillPop: () async {
-          return true;
-        },
+    return Obx(() => PopScope(
+        canPop: true,
         child: Scaffold(
           body: KeepAliveWrapper(
             child: PageView(
@@ -57,58 +51,10 @@ class LoginedPage<T> extends BaseStatefulWidget<LoginedController> {
           ),
         )));
   }
-
-  // Widget? indexDrawer() {
-  //   logI("开始绘制，昵称为" + _loginedController._nickName.value);
-  //   return Obx(() => Drawer(
-  //           child: Column(
-  //         children: [
-  //           DrawerHeader(
-  //               child: DrawerHeader(
-  //             child: Row(
-  //               children: [
-  //                 Expanded(
-  //                     child: Image(
-  //                   image: NetworkImage(_loginedController._imgUrl.value),
-  //                   width: 30,
-  //                   height: 30,
-  //                 )), //头像
-  //                 Text(
-  //                   _loginedController._nickName.value,
-  //                 ),
-  //                 const Expanded(
-  //                     child: Image(
-  //                   image: AssetImage(
-  //                       "assets/icons/button_icon/detail_button.png"),
-  //                   width: 30,
-  //                   height: 30,
-  //                 )), //可点击详细信息的图标
-  //                 const Expanded(
-  //                     child: Image(
-  //                   image: AssetImage("assets/icons/button_icon/scan_code.png"),
-  //                   width: 30,
-  //                   height: 30,
-  //                 )), //扫码按钮
-  //               ],
-  //             ),
-  //             // padding: EdgeInsets.fromLTRB(40, 40, 40, 40),
-  //             decoration: const BoxDecoration(
-  //                 color: Colors.grey,
-  //                 borderRadius: BorderRadius.all(Radius.circular(20))),
-  //           )),
-  //           const ListTile(
-  //             leading: Text("lead"),
-  //             title: Text("侧边栏 2"),
-  //           ),
-  //           const ListTile(
-  //             title: Text("this "),
-  //           ),
-  //         ],
-  //       )));
-  // }
 }
 
 class LoginedController<T> extends BaseController<ApiLogin> {
+  AudioPlayer audioPlayer = AudioPlayer();
   DateTime? lastPopTime;
   final RxInt _curPage = 0.obs;
   final PageController _pageController = PageController(initialPage: 0);
@@ -120,13 +66,14 @@ class LoginedController<T> extends BaseController<ApiLogin> {
       Get.put(DrawerComponentController());
 
   final List<Widget> naviItems = [
-    FindPage(),
+    const FindPage(),
     MinePage(),
-    FollowPage(),
+    const FollowPage(),
   ];
 
   @override
   void onInit() {
+    loadNet();
     super.onInit();
   }
 
@@ -147,7 +94,6 @@ class LoginedController<T> extends BaseController<ApiLogin> {
 
   @override
   void onReady() async {
-    loadNet();
     super.onReady();
     showSuccess();
   }

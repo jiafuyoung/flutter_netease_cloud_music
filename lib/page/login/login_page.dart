@@ -26,11 +26,11 @@ class LoginPage extends BaseStatelessWidget<LoginController> {
   final LoginController _loginController = Get.put(LoginController());
   @override
   Widget buildContent(BuildContext context) {
-    if (_loginController.login.isTrue) {
-      LoginedPage loginedPage =
-          Get.offAndToNamed("/logined_page") as LoginedPage;
-      return loginedPage;
-    }
+    // if (_loginController.login.isTrue) {
+    //   LoginedPage loginedPage =
+    //       Get.offAndToNamed("/logined_page") as LoginedPage;
+    //   return loginedPage;
+    // }
     logI("未登录");
     return const Background(
       child: SingleChildScrollView(
@@ -67,8 +67,10 @@ class LoginController extends BaseController<ApiLogin> {
 
   @override
   void onInit() {
+    logD(">>>>>>>>>>>>onInit  Login");
     super.onInit();
-    loadNet();
+    showSuccess();
+    // loadNet();
   }
 
   @override
@@ -78,13 +80,6 @@ class LoginController extends BaseController<ApiLogin> {
 
   @override
   void loadNet() async {
-    // logI("获取登录状态");
-    // personInfo.then((value) {
-    //   //正确获取到用户信息
-    //   logI("登录状态" + value.toJson().toString());
-    //   login = RxBool(true);
-    //   UserPreferences().setUserInfo(jsonEncode(value));
-    // }).catchError((e) async {
     //如果异常就从上次登录的持久化中获取，前提是本地的数据未过期
     var isLogin = await UserPreferences().getIsLoggedIn();
     var lastLogin = await UserPreferences().getLastLogin();
@@ -98,7 +93,6 @@ class LoginController extends BaseController<ApiLogin> {
       }
     }
     showSuccess();
-    logI(login.string);
   }
 }
 
@@ -131,13 +125,6 @@ class MobileLoginScreen extends StatelessWidget {
 class LoginBinding extends Bindings {
   @override
   void dependencies() {
-    logD(">>>>>>>>>>>>开始注入代码");
     Get.lazyPut(() => LoginController());
-    Get.lazyPut(() => DrawerComponentController());
-    Get.lazyPut(() => LoginedController());
-    Get.lazyPut(() => MineController());
-    Get.lazyPut(() => FindController());
-    Get.lazyPut(() => FollowController());
-    logD(">>>>>>>>>>>>注入完成");
   }
 }
