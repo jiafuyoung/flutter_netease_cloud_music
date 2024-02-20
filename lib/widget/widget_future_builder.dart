@@ -37,9 +37,7 @@ class _CustomFutureBuilderState<T> extends State<CustomFutureBuilder<T>> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((call) {
-      logI("回调更改状态" + _futureFlag.toString());
       _request();
-      logI("回调更改状态完成" + _futureFlag.toString());
     });
   }
 
@@ -74,7 +72,7 @@ class _CustomFutureBuilderState<T> extends State<CustomFutureBuilder<T>> {
 
   @override
   Widget build(BuildContext context) {
-    ///_future未初始化前，先加载默认没有数量的评论图标
+    ///_future未初始化前，先加载默认组件
     return !_futureFlag
         ? widget.loadingWidget
         : FutureBuilder(

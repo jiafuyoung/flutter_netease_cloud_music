@@ -28,25 +28,25 @@ class MinePage extends BaseStatefulWidget<MineController> {
   bool showBackButton() => false;
 
   //本层级标题
-  @override
-  bool showTitleBar() {
-    return true;
-  }
+  // @override
+  // bool showTitleBar() {
+  //   return true;
+  // }
 
   @override
   String titleString() {
     return _mineController._title;
   }
 
-  @override
-  bool showDrawer() {
-    return true;
-  }
+  // @override
+  // bool showDrawer() {
+  //   return true;
+  // }
 
-  @override
-  Widget indexDrawer() {
-    return const DrawerComponent();
-  }
+  // @override
+  // Widget indexDrawer() {
+  //   return const DrawerComponent();
+  // }
 }
 
 class MineController extends BaseController<ApiLogin> {

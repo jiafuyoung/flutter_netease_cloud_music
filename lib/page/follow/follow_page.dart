@@ -33,20 +33,20 @@ class FollowPage extends BaseStatefulWidget<FollowController> {
   @override
   bool showBackButton() => false;
 
-  @override
-  bool showTitleBar() {
-    return true;
-  }
+  // @override
+  // bool showTitleBar() {
+  //   return true;
+  // }
 
-  @override
-  bool showDrawer() {
-    return true;
-  }
+  // @override
+  // bool showDrawer() {
+  //   return true;
+  // }
 
-  @override
-  Widget indexDrawer() {
-    return const DrawerComponent();
-  }
+  // @override
+  // Widget indexDrawer() {
+  //   return const DrawerComponent();
+  // }
 }
 
 class FollowController extends BaseController<ApiLogin> {

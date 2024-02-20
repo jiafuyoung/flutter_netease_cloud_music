@@ -43,7 +43,7 @@ class PlayListModel with ChangeNotifier {
     _splitPlayList();
   }
 
-  void getSelfPlaylistData(BuildContext context) async {
+  void getSelfPlaylistData() async {
     var result = ApiSong().getUserPlayList(user.account!.id!);
     result.then((upl) => setPlayList(upl.playlist!)).catchError((e) => logE(e));
   }

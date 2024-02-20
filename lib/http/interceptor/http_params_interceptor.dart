@@ -28,6 +28,9 @@ class HttpParamsInterceptor extends Interceptor {
       options.path = options.path + "?cookie=" + cookie.toString();
       // }
     } else {
+      options.path = options.path +
+          "?timestamp=" +
+          DateTime.now().millisecondsSinceEpoch.toString();
       body["cookie"] = cookie.toString();
     }
     // headers["cookie"] = cookie.toString();

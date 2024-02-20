@@ -29,7 +29,6 @@ abstract class ApiFind {
   @GET("/toplist")
   Future<TopList> getToplist();
 
-  @GET("/playlist/track/all")
-  Future<RankSongList> getRankSongList(@Query("id") int id,
-      @Query("limit") int limit, @Query("offset") int offset);
+  @POST("/playlist/track/all")
+  Future<RankSongList> getRankSongList(@Body() Map<String, dynamic> params);
 }

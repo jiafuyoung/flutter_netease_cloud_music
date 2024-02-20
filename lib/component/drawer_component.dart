@@ -23,8 +23,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
     //因为没有继承那个需要状态的通用 widget，所以需要写 obx
     return Obx(() => Drawer(
         backgroundColor: Color.fromRGBO(245, 245, 245, 1),
-        child: SingleChildScrollView(
-            child: Column(
+        child: Column(
           children: [
             //个人信息部分
             Container(
@@ -61,6 +60,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
                         )
                       ],
                     ),
+                    height: 30,
                   ),
                   //扫码按钮
                   const SizedBox(
@@ -73,176 +73,69 @@ class _DrawerComponentState extends State<DrawerComponent> {
               ),
               padding: EdgeInsets.fromLTRB(20, 60, 20, 10),
             ),
-            //卡片组件
-            DrawerCard(drawerCardItem: [
-              DrawerCardTitle(drawerCardTitle: "个人中心"),
-              DrawerListItem(
-                title: Text("消息中心"),
-                leadingWidget:
-                    MyIcon(imgUrl: "assets/icons/button_icon/message.png"),
-                click: () => clickList("消息中心"),
-              ),
-              DrawerListItem(
-                title: Text("云贝中心"),
-                leadingWidget:
-                    MyIcon(imgUrl: "assets/icons/button_icon/cloud_shell.png"),
-                click: () => clickList("云贝中心"),
-              ),
-            ]),
-            DrawerCard(drawerCardItem: [
-              DrawerCardTitle(drawerCardTitle: "其他"),
-              DrawerListItem(
-                title: Text("设置"),
-                leadingWidget:
-                    MyIcon(imgUrl: "assets/icons/button_icon/setting.png"),
-                click: () => clickList("设置"),
-              ),
-              DrawerListItem(
-                title: Text("深色模式"),
-                leadingWidget:
-                    MyIcon(imgUrl: "assets/icons/button_icon/dark_model.png"),
-                trailWidget: Switch(
-                  value: _drawerController._darkModel.value,
-                  onChanged: (value) {
-                    _drawerController._darkModel.value = value;
-                  },
-                ),
-                click: () => clickList(
-                    "深色模式" + _drawerController._darkModel.value.toString()),
-              ),
-            ]),
-            DrawerCard(drawerCardItem: [
-              DrawerListItem(
-                title: Text(
-                  "退出登录",
-                  style: TextStyle(color: Colors.red),
-                ),
-                leadingWidget: SizedBox(
-                  width: 60,
-                ),
-                trailWidget: Text(""),
-                click: () => clickList("退出登录"),
-              )
-            ]),
-            DrawerCard(drawerCardItem: [
-              DrawerListItem(
-                title: Text(
-                  "退出登录",
-                  style: TextStyle(color: Colors.red),
-                ),
-                leadingWidget: SizedBox(
-                  width: 60,
-                ),
-                trailWidget: Text(""),
-                click: () => clickList("退出登录"),
-              )
-            ]),
-            DrawerCard(drawerCardItem: [
-              DrawerListItem(
-                title: Text(
-                  "退出登录",
-                  style: TextStyle(color: Colors.red),
-                ),
-                leadingWidget: SizedBox(
-                  width: 60,
-                ),
-                trailWidget: Text(""),
-                click: () => clickList("退出登录"),
-              )
-            ]),
-            DrawerCard(drawerCardItem: [
-              DrawerListItem(
-                title: Text(
-                  "退出登录",
-                  style: TextStyle(color: Colors.red),
-                ),
-                leadingWidget: SizedBox(
-                  width: 60,
-                ),
-                trailWidget: Text(""),
-                click: () => clickList("退出登录"),
-              )
-            ]),
-            DrawerCard(drawerCardItem: [
-              DrawerListItem(
-                title: Text(
-                  "退出登录",
-                  style: TextStyle(color: Colors.red),
-                ),
-                leadingWidget: SizedBox(
-                  width: 60,
-                ),
-                trailWidget: Text(""),
-                click: () => clickList("退出登录"),
-              )
-            ]),
-            DrawerCard(drawerCardItem: [
-              DrawerListItem(
-                title: Text(
-                  "退出登录",
-                  style: TextStyle(color: Colors.red),
-                ),
-                leadingWidget: SizedBox(
-                  width: 60,
-                ),
-                trailWidget: Text(""),
-                click: () => clickList("退出登录"),
-              )
-            ]),
-            DrawerCard(drawerCardItem: [
-              DrawerListItem(
-                title: Text(
-                  "退出登录",
-                  style: TextStyle(color: Colors.red),
-                ),
-                leadingWidget: SizedBox(
-                  width: 60,
-                ),
-                trailWidget: Text(""),
-                click: () => clickList("退出登录"),
-              )
-            ]),
-            DrawerCard(drawerCardItem: [
-              DrawerListItem(
-                title: Text(
-                  "退出登录",
-                  style: TextStyle(color: Colors.red),
-                ),
-                leadingWidget: SizedBox(
-                  width: 60,
-                ),
-                trailWidget: Text(""),
-                click: () => clickList("退出登录"),
-              )
-            ]),
-            DrawerCard(drawerCardItem: [
-              DrawerListItem(
-                title: Text(
-                  "退出登录",
-                  style: TextStyle(color: Colors.red),
-                ),
-                leadingWidget: SizedBox(
-                  width: 60,
-                ),
-                trailWidget: Text(""),
-                click: () => clickList("退出登录"),
-              )
-            ]),
-            DrawerCard(drawerCardItem: [
-              DrawerListItem(
-                title: Text(
-                  "退出登录",
-                  style: TextStyle(color: Colors.red),
-                ),
-                leadingWidget: SizedBox(
-                  width: 60,
-                ),
-                trailWidget: Text(""),
-                click: () => clickList("退出登录"),
-              )
-            ])
+
+            ///Expanded填充除了上面不可移动元素的剩余空间，
+            ///然后将SingleChildScrollView的滚动区域限制在这片空间，实现部分固定，剩余可无限滚动的效果
+            Expanded(
+              child: SingleChildScrollView(
+                  child: Column(
+                children: [
+                  //卡片组件
+                  DrawerCard(drawerCardItem: [
+                    DrawerCardTitle(drawerCardTitle: "个人中心"),
+                    DrawerListItem(
+                      title: Text("消息中心"),
+                      leadingWidget: MyIcon(
+                          imgUrl: "assets/icons/button_icon/message.png"),
+                      click: () => clickList("消息中心"),
+                    ),
+                    DrawerListItem(
+                      title: Text("云贝中心"),
+                      leadingWidget: MyIcon(
+                          imgUrl: "assets/icons/button_icon/cloud_shell.png"),
+                      click: () => clickList("云贝中心"),
+                    ),
+                  ]),
+                  DrawerCard(drawerCardItem: [
+                    DrawerCardTitle(drawerCardTitle: "其他"),
+                    DrawerListItem(
+                      title: Text("设置"),
+                      leadingWidget: MyIcon(
+                          imgUrl: "assets/icons/button_icon/setting.png"),
+                      click: () => clickList("设置"),
+                    ),
+                    DrawerListItem(
+                      title: Text("深色模式"),
+                      leadingWidget: MyIcon(
+                          imgUrl: "assets/icons/button_icon/dark_model.png"),
+                      trailWidget: Switch(
+                        value: _drawerController._darkModel.value,
+                        onChanged: (value) {
+                          _drawerController._darkModel.value = value;
+                        },
+                      ),
+                      click: () => clickList("深色模式" +
+                          _drawerController._darkModel.value.toString()),
+                    ),
+                  ]),
+                  DrawerCard(drawerCardItem: [
+                    DrawerListItem(
+                      title: Text(
+                        "退出登录",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                      leadingWidget: SizedBox(
+                        width: 60,
+                      ),
+                      trailWidget: Text(""),
+                      click: () => clickList("退出登录"),
+                    )
+                  ]),
+                ],
+              )),
+            ),
           ],
-        ))));
+        )));
   }
 }
 //====================方法====================================//

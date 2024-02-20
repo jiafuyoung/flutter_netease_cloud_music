@@ -25,16 +25,16 @@ class PersonInfo {
     loginType = json['loginType'];
     code = json['code'];
     account =
-        json['account'] != null ? new Account.fromJson(json['account']) : null;
+        json['account'] != null ? Account.fromJson(json['account']) : null;
     token = json['token'];
     profile =
-        json['profile'] != null ? new Profile.fromJson(json['profile']) : null;
+        json['profile'] != null ? Profile.fromJson(json['profile']) : null;
 
     cookie = json['cookie'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['loginType'] = this.loginType;
     data['code'] = this.code;
     if (this.account != null) {
@@ -103,7 +103,7 @@ class Account {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['userName'] = this.userName;
     data['type'] = this.type;
@@ -220,7 +220,7 @@ class Profile {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['defaultAvatar'] = this.defaultAvatar;
     data['mutual'] = this.mutual;
     // data['remarkName'] = this.remarkName;

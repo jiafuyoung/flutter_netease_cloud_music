@@ -88,22 +88,15 @@ class _ApiFind implements ApiFind {
   }
 
   @override
-  Future<RankSongList> getRankSongList(
-    id,
-    limit,
-    offset,
-  ) async {
+  Future<RankSongList> getRankSongList(params) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'id': id,
-      r'limit': limit,
-      r'offset': offset,
-    };
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
+    _data.addAll(params);
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<RankSongList>(Options(
-      method: 'GET',
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )

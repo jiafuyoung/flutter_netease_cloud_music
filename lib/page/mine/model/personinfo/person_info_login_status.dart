@@ -17,13 +17,13 @@ class PersonInfoLoginStatus {
   PersonInfoLoginStatus.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     account =
-        json['account'] != null ? new Account.fromJson(json['account']) : null;
+        json['account'] != null ? Account.fromJson(json['account']) : null;
     profile =
-        json['profile'] != null ? new Profile.fromJson(json['profile']) : null;
+        json['profile'] != null ? Profile.fromJson(json['profile']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['code'] = this.code;
     if (this.account != null) {
       data['account'] = this.account!.toJson();
@@ -83,7 +83,7 @@ class Account {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['userName'] = this.userName;
     data['type'] = this.type;
@@ -221,7 +221,7 @@ class Profile {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['userId'] = this.userId;
     data['userType'] = this.userType;
     data['nickname'] = this.nickname;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:netease_cloud_music_flutter/component/load_state_widget.dart';
 import '../controller/base_controller.dart';
 import '../res/colors.dart';
 import '../res/style.dart';
@@ -55,13 +56,6 @@ AppBar createAppBar(
     systemOverlayStyle: systemOverLayoutStyle(),
     leading: showBackButton ? leadingButton() : null,
     actions: actionWidget,
-  );
-}
-
-Widget titleView(String titleString) {
-  return Text(
-    titleString,
-    style: Styles.style_white_32_bold,
   );
 }
 

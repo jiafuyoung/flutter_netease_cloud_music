@@ -46,11 +46,10 @@ Widget createEmptyWidget(BaseController controller) {
 }
 
 ///创建AppBar
-AppBar createAppBar(String titleString, bool showBackButton,
-    List<Widget>? actionWidget, bool showSearch,
+AppBar createAppBar(bool showBackButton, List<Widget>? actionWidget,
     {Widget? titleWidget}) {
   return AppBar(
-    title: showSearch ? searchView() : (titleWidget ?? titleView(titleString)),
+    title: titleWidget,
     centerTitle: true,
     backgroundColor: const Color.fromARGB(255, 97, 94, 94),
     iconTheme: const IconThemeData(color: ColorStyle.color_white),

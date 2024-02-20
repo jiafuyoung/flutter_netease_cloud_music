@@ -1,8 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
 import "package:flutter/material.dart";
 import "package:get/get.dart";
-import 'package:netease_cloud_music_flutter/component/common_component.dart';
-import 'package:netease_cloud_music_flutter/component/drawer_component.dart';
 import 'package:netease_cloud_music_flutter/component/find_component.dart';
 import 'package:netease_cloud_music_flutter/page/find/api/api_find.dart';
 import 'package:netease_cloud_music_flutter/page/find/model/banner_data/find_banner.dart';
@@ -13,6 +11,7 @@ import 'package:netease_cloud_music_flutter/page/find/model/top_list/find_top.da
 import 'package:netease_cloud_music_flutter/provider/play_songs_model.dart';
 import 'package:netease_cloud_music_flutter/utils/log_utils.dart';
 import 'package:netease_cloud_music_flutter/widget/pageWidget/base_stateful_widget.dart';
+import 'package:netease_cloud_music_flutter/widget/widget_future_builder.dart';
 import 'package:provider/provider.dart';
 import '../secondary_page/song/model/song.dart' as PlaySong;
 
@@ -29,6 +28,8 @@ class FindPage extends BaseStatefulWidget<FindController> {
     final picLength = size.width * 0.3;
     const picTextHeight = 40.0;
     const svgTextHeight = 20.0;
+
+    final Map<int, RankSongList> rankSongMap = {};
 
     ///订阅plsysongmodel情况
     return Consumer<PlaySongsModel>(builder: (context, model, _) {
@@ -132,12 +133,18 @@ class FindPage extends BaseStatefulWidget<FindController> {
                 height: 240,
                 width: size.width * 0.95,
                 child: Swiper(
+
+                    //轮播图
                     itemCount: controller.rankCount.value,
                     scrollDirection: Axis.horizontal,
                     autoplay: false,
                     loop: false,
                     itemBuilder: (context, rankIndex) {
                       var thisRankList = controller.topList[rankIndex];
+                      Map<String, dynamic> map = {};
+                      map["id"] = thisRankList.id!;
+                      map["limit"] = 3;
+                      map["offset"] = 0;
                       return FindRankListBox(
                         rankListTitle: Container(
                           margin: const EdgeInsets.fromLTRB(20, 15, 20, 7),
@@ -152,24 +159,21 @@ class FindPage extends BaseStatefulWidget<FindController> {
                           margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                           width: size.width,
                           height: 180,
-                          child: ListView.builder(
-                              controller: controller.scrollController,
-                              itemCount: 3,
-                              scrollDirection: Axis.vertical,
-                              itemBuilder: (context, songIndex) {
-                                var thisSong = controller
-                                    .rankSongList[rankIndex].songs![songIndex];
-                                return FindRankList(
-                                    imgUrl: thisSong.al!.picUrl!,
-                                    text1: thisSong.name!,
-                                    text2: thisSong.ar![0].name!, //todo 先只显示一个
-                                    text3: "标签",
-                                    clickIcon: () {
-                                      // PlaySongsModel playSongsModel =
-                                      //     Provider.of<PlaySongsModel>(context);
-                                      playSong(thisSong, model);
-                                    });
-                              }),
+
+                          ///使用Future防止网络请求差的时候，数据未及时加载到，出现数组越界的情况
+                          ///同时用一个map存已经请求到的rankIndex的数据，防止左滑重复请求
+                          child: rankSongMap.containsKey(rankIndex)
+                              ? rankSongListView(rankSongMap[rankIndex]!, model)
+                              : CustomFutureBuilder<RankSongList>(
+                                  params: map,
+                                  futureFunc: ApiFind().getRankSongList,
+                                  loadingWidget: const Text(""),
+                                  builder: (context, songList) {
+                                    //每个轮播图里的列表,如果没请求过就请求并放入map
+                                    rankSongMap[rankIndex] = songList;
+                                    return rankSongListView(songList, model);
+                                  },
+                                ),
                         ),
                       );
                     }))
@@ -182,29 +186,37 @@ class FindPage extends BaseStatefulWidget<FindController> {
     });
   }
 
-  @override
-  bool showDrawer() => true;
-  @override
-  Widget indexDrawer() => const DrawerComponent();
+  ListView rankSongListView(RankSongList songList, PlaySongsModel model) {
+    return ListView.builder(
+        controller: controller.scrollController,
+        itemCount: 3,
+        scrollDirection: Axis.vertical,
+        itemBuilder: (context, songIndex) {
+          var thisSong = songList.songs![songIndex];
+
+          return FindRankList(
+              imgUrl: thisSong.al!.picUrl!,
+              text1: thisSong.name!,
+              text2: thisSong.ar![0].name!, //todo 先只显示一个
+              text3: "标签",
+              clickIcon: () {
+                // PlaySongsModel playSongsModel =
+                //     Provider.of<PlaySongsModel>(context);
+                playSong(thisSong, model);
+              });
+        });
+  }
+
   @override
   bool showSearch() => true;
   @override
   bool showBackButton() => false;
   //顶部的在父类关闭了，这里开启的是子类，第二层的
-  @override
-  bool showTitleBar() => true;
+  // @override
+  // bool showTitleBar() => true;
   //子部分的顶部标题
   @override
   String titleString() => "发现";
-
-  @override
-  List<Widget> appBarActionWidget() {
-    List<Widget> actionList = [];
-    actionList.add(MicIcon(
-      clickIcon: () {},
-    ));
-    return actionList;
-  }
 
   ///点击FindMyIconWithText跳转
   void goMyIconWithTextDetail(String routeUrl) {
@@ -229,8 +241,8 @@ class FindController extends BaseController<ApiFind> {
   RxList<Recommend> recommendList = <Recommend>[].obs;
   RxList<FindBanner> bannerList = <FindBanner>[].obs;
   RxList<FindTop> topList = <FindTop>[].obs;
-  RxList<RankSongList> rankSongList = <RankSongList>[].obs;
-  RxInt rankCount = 6.obs;
+  // RxList<RankSongList> rankSongList = <RankSongList>[].obs;
+  RxInt rankCount = 0.obs;
   List<Map<String, String>> data = [
     {
       "img": "assets/icons/button_icon/daily_song_full.svg",
@@ -273,19 +285,22 @@ class FindController extends BaseController<ApiFind> {
     });
     //榜单
     httpRequest(api.getToplist(), (value) {
+      rankCount = value.list!.length > 5 ? RxInt(6) : RxInt(value.list!.length);
       topList.addAll(value.list ?? []);
-      for (int i = 1; i <= value.list!.length; i++) {
-        httpRequest(ApiFind().getRankSongList(value.list![i].id!, 3, 0),
-            (value) {
-          rankSongList.add(value);
-        });
-      }
+      // for (int i = 0; i < value.list!.length; i++) {
+      //   httpRequest(ApiFind().getRankSongList(value.list![i].id!, 3, 0),
+      //       (value) {
+      //     rankSongList.add(value);
+      //   });
+      // }
+      // rankListFinish = RxBool(true);
     });
   }
 
   @override
   void onInit() {
     super.onInit();
+    showLoading();
     loadNet();
     addSongListListener();
   }

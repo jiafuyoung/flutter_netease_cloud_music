@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
-import 'package:netease_cloud_music_flutter/component/drawer_component.dart';
 import 'package:netease_cloud_music_flutter/const/constants.dart';
 import 'package:netease_cloud_music_flutter/controller/base_controller.dart';
 import 'package:netease_cloud_music_flutter/page/login/api/api_login.dart';
@@ -8,24 +7,23 @@ import 'package:netease_cloud_music_flutter/http/preferences/user_preferences.da
 import 'package:netease_cloud_music_flutter/utils/log_utils.dart';
 import 'package:netease_cloud_music_flutter/utils/time_util.dart';
 import 'package:netease_cloud_music_flutter/widget/pageWidget/base_stateless_widget.dart';
-import '../../logined_page.dart';
-import '../find/find_page.dart';
-import '../follow/follow_page.dart';
 import '../login/component/login_page_top_image.dart';
 import '../../utils/responsive.dart';
 
 import '../../component/background.dart';
 import '../login/component/login_form.dart';
-import '../mine/mine_page.dart';
 
 //登录页
 // class LoginPage extends BaseStatefulWidget<LoginController> {
 class LoginPage extends BaseStatelessWidget<LoginController> {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
-  final LoginController _loginController = Get.put(LoginController());
   @override
   Widget buildContent(BuildContext context) {
+    ///flutter 路由跳转时如果按下面的判断进入logined_page时
+    ///从logined_page跳转其他页面时会报'!_debugLocked': is not true.
+    ///原因是login页面没有绘制，而main设置的home是login
+    ///所以在欢迎页里按情况根据是否需要登录跳转
     // if (_loginController.login.isTrue) {
     //   LoginedPage loginedPage =
     //       Get.offAndToNamed("/logined_page") as LoginedPage;
