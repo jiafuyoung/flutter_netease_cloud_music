@@ -16,7 +16,7 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
       expi: json['expi'] as int?,
       type: json['type'] as String?,
       gain: (json['gain'] as num?)?.toDouble(),
-      peak: json['peak'] as int?,
+      peak: (json['peak'] as num?)?.toDouble(),
       fee: json['fee'] as int?,
       uf: json['uf'],
       payed: json['payed'] as int?,

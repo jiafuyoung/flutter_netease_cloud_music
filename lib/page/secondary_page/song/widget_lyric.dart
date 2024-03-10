@@ -5,6 +5,7 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:netease_cloud_music_flutter/page/secondary_page/song/model/lyric/lyric.dart';
+import 'package:netease_cloud_music_flutter/utils/log_utils.dart';
 import 'package:netease_cloud_music_flutter/widget/common_text_style.dart';
 
 class LyricWidget extends CustomPainter with ChangeNotifier {
@@ -154,8 +155,10 @@ class LyricWidget extends CustomPainter with ChangeNotifier {
 
     // 延迟一下计算总高度
     Future.delayed(const Duration(milliseconds: 300), () {
-      totalHeight = (lyricPaints[0].height + ScreenUtil().setWidth(30)) *
-          (lyricPaints.length - 1);
+      totalHeight = lyricPaints.isEmpty
+          ? 0
+          : (lyricPaints[0].height + ScreenUtil().setWidth(30)) *
+              (lyricPaints.length - 1);
     });
   }
 

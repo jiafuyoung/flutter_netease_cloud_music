@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:netease_cloud_music_flutter/application.dart';
 import 'package:netease_cloud_music_flutter/page/login/welcome.dart';
 import 'package:netease_cloud_music_flutter/provider/play_list_model.dart';
@@ -85,3 +83,6 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
+
+// keytool -genkey -v -keystore Flutter网易云.keystore -alias Flutter网易云 -keyalg RSA -keysize 2048 -validity 10000 -storepass 296159 -keypass 296159

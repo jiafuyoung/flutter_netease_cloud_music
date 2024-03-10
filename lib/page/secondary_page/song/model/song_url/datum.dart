@@ -17,7 +17,7 @@ class Datum {
   int? expi;
   String? type;
   double? gain;
-  int? peak;
+  double? peak;
   int? fee;
   dynamic uf;
   int? payed;
@@ -83,7 +83,7 @@ class Datum {
     int? expi,
     String? type,
     double? gain,
-    int? peak,
+    double? peak,
     int? fee,
     dynamic uf,
     int? payed,

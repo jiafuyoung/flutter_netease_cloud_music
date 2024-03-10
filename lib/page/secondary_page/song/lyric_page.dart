@@ -29,13 +29,14 @@ class _LyricPageState extends State<LyricPage> with TickerProviderStateMixin {
   late int curSongId;
   late Timer dragEndTimer; // 拖动结束任务
   late Function dragEndFunc;
+  bool initStatus = false;
   Duration dragEndDuration = const Duration(milliseconds: 1000);
 
   @override
   void initState() {
     super.initState();
+    curSongId = widget.model.curSong.id;
     WidgetsBinding.instance.addPostFrameCallback((call) {
-      curSongId = widget.model.curSong.id;
       _request();
     });
     _lyricWidget = LyricWidget(lyrics, 0);
@@ -48,6 +49,7 @@ class _LyricPageState extends State<LyricPage> with TickerProviderStateMixin {
         });
       }
     };
+    initStatus = true;
   }
 
   void _request() async {
@@ -65,11 +67,14 @@ class _LyricPageState extends State<LyricPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     // 当前歌的id变化之后要重新获取歌词
     final size = MediaQuery.of(context).size;
-    if (curSongId != widget.model.curSong.id) {
-      lyrics = [];
-      curSongId = widget.model.curSong.id;
-      _request();
+    if (initStatus) {
+      if (curSongId != widget.model.curSong.id) {
+        lyrics = [];
+        curSongId = widget.model.curSong.id;
+        _request();
+      }
     }
+
     return Scaffold(
         backgroundColor: Colors.transparent,
         body: lyrics.isEmpty

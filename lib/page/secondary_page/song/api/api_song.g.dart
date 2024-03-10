@@ -88,6 +88,29 @@ class _ApiSong implements ApiSong {
   }
 
   @override
+  Future<SongListDetail> getUserPlayListById(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'id': id};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<SongListDetail>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/playlist/detail',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = SongListDetail.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<CommonData> getSongCommonData(params) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

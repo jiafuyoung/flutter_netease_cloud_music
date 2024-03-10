@@ -5,7 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:netease_cloud_music_flutter/component/find_component.dart';
+import 'package:netease_cloud_music_flutter/component/find_page_component.dart';
 import 'package:netease_cloud_music_flutter/utils/log_utils.dart';
 
 class DrawerComponent extends StatefulWidget {

@@ -1,11 +1,10 @@
 import 'package:card_swiper/card_swiper.dart';
 import "package:flutter/material.dart";
 import "package:get/get.dart";
-import 'package:netease_cloud_music_flutter/component/find_component.dart';
+import 'package:netease_cloud_music_flutter/component/find_page_component.dart';
 import 'package:netease_cloud_music_flutter/page/find/api/api_find.dart';
 import 'package:netease_cloud_music_flutter/page/find/model/banner_data/find_banner.dart';
 import 'package:netease_cloud_music_flutter/page/find/model/rank_song_list/rank_song_list.dart';
-import 'package:netease_cloud_music_flutter/page/find/model/rank_song_list/song.dart';
 import 'package:netease_cloud_music_flutter/page/find/model/recommend_song_list/recommend.dart';
 import 'package:netease_cloud_music_flutter/page/find/model/top_list/find_top.dart';
 import 'package:netease_cloud_music_flutter/provider/play_songs_model.dart';
@@ -13,7 +12,6 @@ import 'package:netease_cloud_music_flutter/utils/log_utils.dart';
 import 'package:netease_cloud_music_flutter/widget/pageWidget/base_stateful_widget.dart';
 import 'package:netease_cloud_music_flutter/widget/widget_future_builder.dart';
 import 'package:provider/provider.dart';
-import '../secondary_page/song/model/song.dart' as PlaySong;
 
 import '../../controller/base_controller.dart';
 
@@ -39,25 +37,28 @@ class FindPage extends BaseStatefulWidget<FindController> {
             Container(
               height: 200,
               // margin: EdgeInsets.all(20),
-              child: Swiper(
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    child: Image.network(
-                      controller.bannerList[index].imageUrl!,
-                      fit: BoxFit.fill,
+              child: controller.bannerList.isEmpty
+                  ? Container()
+                  : Swiper(
+                      itemBuilder: (context, index) {
+                        return Container(
+                          child: Image.network(
+                            controller.bannerList[index].imageUrl!,
+                            fit: BoxFit.fill,
+                          ),
+                          clipBehavior: Clip.hardEdge,
+                          height: 180,
+                          margin: const EdgeInsets.all(10),
+                          decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(18.0))),
+                        );
+                      },
+                      autoplay: true,
+                      autoplayDelay: 3000,
+                      itemCount: controller.bannerList.length,
+                      pagination: const SwiperPagination(),
                     ),
-                    clipBehavior: Clip.hardEdge,
-                    height: 180,
-                    margin: const EdgeInsets.all(10),
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(18.0))),
-                  );
-                },
-                autoplay: true,
-                autoplayDelay: 2,
-                itemCount: controller.bannerList.length,
-                pagination: const SwiperPagination(),
-              ),
               margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
             ),
             SizedBox(
@@ -76,7 +77,7 @@ class FindPage extends BaseStatefulWidget<FindController> {
                       textWidth: svgLength,
                     ),
                     clickIcon: () {
-                      goMyIconWithTextDetail(map['bottomText']!);
+                      // goSongList(map['bottomText']!);
                     },
                   );
                 },
@@ -87,7 +88,7 @@ class FindPage extends BaseStatefulWidget<FindController> {
             Container(
               child: FunctionTitle(
                   clickIcon: () {
-                    goMyIconWithTextDetail("推荐歌单");
+                    logI("这个页面还没写");
                   },
                   text: "推荐歌单"),
               margin: const EdgeInsets.fromLTRB(20, 15, 20, 7),
@@ -109,7 +110,7 @@ class FindPage extends BaseStatefulWidget<FindController> {
                       textWidth: svgLength,
                     ),
                     clickIcon: () {
-                      goMyIconWithTextDetail(
+                      goSongList(controller.recommendList[index].id!,
                           controller.recommendList[index].name);
                     },
                   );
@@ -124,7 +125,7 @@ class FindPage extends BaseStatefulWidget<FindController> {
             Container(
               child: FunctionTitle(
                   clickIcon: () {
-                    goMyIconWithTextDetail("排行榜");
+                    logI("这个页面还没写");
                   },
                   text: "排行榜"),
               margin: const EdgeInsets.fromLTRB(20, 15, 20, 7),
@@ -143,14 +144,14 @@ class FindPage extends BaseStatefulWidget<FindController> {
                       var thisRankList = controller.topList[rankIndex];
                       Map<String, dynamic> map = {};
                       map["id"] = thisRankList.id!;
-                      map["limit"] = 3;
+                      // map["limit"] = 3;
                       map["offset"] = 0;
                       return FindRankListBox(
                         rankListTitle: Container(
                           margin: const EdgeInsets.fromLTRB(20, 15, 20, 7),
                           child: FunctionTitle(
                             clickIcon: () {
-                              goMyIconWithTextDetail(thisRankList.name!);
+                              goSongList(thisRankList.id!, thisRankList.name!);
                             },
                             text: thisRankList.name!,
                           ),
@@ -196,13 +197,11 @@ class FindPage extends BaseStatefulWidget<FindController> {
 
           return FindRankList(
               imgUrl: thisSong.al!.picUrl!,
-              text1: thisSong.name!,
-              text2: thisSong.ar![0].name!, //todo 先只显示一个
-              text3: "标签",
+              songName: thisSong.name!,
+              author: thisSong.ar!.map((e) => e.name).join("/"), //todo 先只显示一个
+              level: "标签",
               clickIcon: () {
-                // PlaySongsModel playSongsModel =
-                //     Provider.of<PlaySongsModel>(context);
-                playSong(thisSong, model);
+                playSong(songList, model, songIndex);
               });
         });
   }
@@ -211,28 +210,18 @@ class FindPage extends BaseStatefulWidget<FindController> {
   bool showSearch() => true;
   @override
   bool showBackButton() => false;
-  //顶部的在父类关闭了，这里开启的是子类，第二层的
-  // @override
-  // bool showTitleBar() => true;
-  //子部分的顶部标题
-  @override
-  String titleString() => "发现";
 
   ///点击FindMyIconWithText跳转
-  void goMyIconWithTextDetail(String routeUrl) {
-    logI("假装已经跳转" + routeUrl);
+  void goSongList(int playlistId, String name) {
+    Future.delayed(
+        const Duration(milliseconds: 500),
+        () => Get.toNamed("/song_list_page",
+            arguments: {"id": playlistId, "name": name}));
     // Get.toNamed(routeUrl);
   }
 
-  void playSong(Song song, PlaySongsModel model) {
-    PlaySong.Song playSong = PlaySong.Song(
-        name: song.name!,
-        artists: song.ar![0].name!,
-        picUrl: song.al!.picUrl!,
-        id: song.id);
-    model.playSong(playSong);
-    Future.delayed(const Duration(milliseconds: 500),
-        () => Get.toNamed("/play_song_page", arguments: playSong));
+  void playSong(RankSongList rankSongList, PlaySongsModel model, int index) {
+    model.addAllSongToList(rankSongList.songs!, index);
   }
 }
 

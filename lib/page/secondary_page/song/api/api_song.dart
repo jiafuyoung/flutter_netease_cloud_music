@@ -6,6 +6,7 @@ import 'package:netease_cloud_music_flutter/page/secondary_page/song/model/lyric
 
 import 'package:netease_cloud_music_flutter/page/secondary_page/song/model/song_url/song_url.dart';
 import 'package:netease_cloud_music_flutter/page/secondary_page/song/model/user_play_list/user_play_list.dart';
+import 'package:netease_cloud_music_flutter/page/secondary_page/song_list/model/song_list_detail/song_list_detail.dart';
 import 'package:retrofit/http.dart';
 
 part 'api_song.g.dart';
@@ -30,6 +31,9 @@ abstract class ApiSong {
 
   @GET("/user/playlist")
   Future<UserPlayList> getUserPlayList(@Query("uid") int uid);
+
+  @GET("/playlist/detail")
+  Future<SongListDetail> getUserPlayListById(@Query("id") int id);
 
   @POST("/comment/music")
   Future<CommonData> getSongCommonData(@Body() Map<String, dynamic> params);

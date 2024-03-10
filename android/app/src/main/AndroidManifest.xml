@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="netease_cloud_music_flutter"
+        android:label="Flutter 网易云"
         android:name="${applicationName}"
         android:usesCleartextTraffic="true"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/icon_logo">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -31,4 +31,10 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+
+        <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
 </manifest>

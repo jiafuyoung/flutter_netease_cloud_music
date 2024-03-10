@@ -9,6 +9,7 @@ import 'package:netease_cloud_music_flutter/page/find/find_page.dart';
 import 'package:netease_cloud_music_flutter/page/follow/follow_page.dart';
 import 'package:netease_cloud_music_flutter/page/login/login_page.dart';
 import 'package:netease_cloud_music_flutter/page/mine/mine_page.dart';
+import 'package:netease_cloud_music_flutter/page/secondary_page/song_list/song_list_page.dart';
 import 'package:netease_cloud_music_flutter/utils/log_utils.dart';
 import 'package:netease_cloud_music_flutter/utils/time_util.dart';
 import 'package:netease_cloud_music_flutter/widget/pageWidget/base_stateless_widget.dart';
@@ -96,6 +97,8 @@ class WelcomeController extends BaseController {
 }
 
 class WelcomeBinding extends Bindings {
+  ///新增页面时，如果是通过Controller+BaseStatefulWidget方式，需提前注入SongListController
+  ///如果不在这里注入，就在每个页面里通过bindding注入，然后在路由配置处配置好binding
   @override
   void dependencies() {
     logD(">>>>>>>>>>>>开始注入代码");
@@ -106,6 +109,7 @@ class WelcomeBinding extends Bindings {
     Get.lazyPut(() => MineController());
     Get.lazyPut(() => FindController());
     Get.lazyPut(() => FollowController());
+    Get.lazyPut(() => SongListController());
     logD(">>>>>>>>>>>>注入完成");
   }
 }

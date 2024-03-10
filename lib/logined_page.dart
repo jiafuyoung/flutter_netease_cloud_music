@@ -92,11 +92,7 @@ class LoginedPage<T> extends BaseStatefulWidget<LoginedController> {
                   children: controller.naviItems,
                 ),
               )),
-              const PlaySongBottom(
-                  url:
-                      "http://p3.music.126.net/FwTFLzZFZOZO5WFL6-JRBg==/2755376139227068.jpg",
-                  songName: "歌名",
-                  author: "作者"),
+              const PlaySongBottom(),
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(
@@ -162,7 +158,7 @@ class LoginedController<T> extends BaseController<ApiLogin> {
   }
 
   void setUserInfo(BuildContext context) {
-    Provider.of<PlayListModel>(context).user = personInfo;
+    Provider.of<PlayListModel>(context, listen: false).user = personInfo;
   }
 
   @override

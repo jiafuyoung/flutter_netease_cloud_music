@@ -177,16 +177,16 @@ class FindRankList extends StatelessWidget {
 
   final String imgUrl;
 
-  final String text1;
-  final String text2;
-  final String text3;
+  final String songName;
+  final String author;
+  final String level;
   const FindRankList(
       {Key? key,
       this.clickIcon,
       required this.imgUrl,
-      required this.text1,
-      required this.text2,
-      required this.text3})
+      required this.songName,
+      required this.author,
+      required this.level})
       : super(key: key);
 
   @override
@@ -211,13 +211,14 @@ class FindRankList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    text1,
+                    songName,
                     style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         overflow: TextOverflow.ellipsis),
                   ),
-                  Text(text2,
+                  Text(author,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(fontSize: 14, color: Colors.red))
                 ],
               ),
@@ -225,7 +226,7 @@ class FindRankList extends StatelessWidget {
               width: size.width * 0.5,
             ),
             SizedBox(
-              child: Text(text3),
+              child: Text(level),
               width: size.width * 0.1,
             )
           ],

@@ -41,7 +41,11 @@ class PlayBottomMenuWidget extends StatelessWidget {
               model.nextPlay();
             },
           ),
-          const ImageMenuWidget('images/icon_play_songs.png', 80),
+          SongListImageMenuWidget(
+            model: model,
+            size: 80,
+            imgUrl: "images/icon_play_songs.png",
+          ),
         ],
       ),
     );

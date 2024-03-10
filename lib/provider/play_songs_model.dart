@@ -6,6 +6,8 @@ import 'package:netease_cloud_music_flutter/http/preferences/song_preferences.da
 import 'package:netease_cloud_music_flutter/page/secondary_page/song/api/api_song.dart';
 import 'package:netease_cloud_music_flutter/utils/fluro_convert_utils.dart';
 import 'package:netease_cloud_music_flutter/utils/log_utils.dart';
+import 'package:netease_cloud_music_flutter/page/find/model/rank_song_list/song.dart'
+    as PlaySong;
 
 import '../page/secondary_page/song/model/song.dart';
 
@@ -22,6 +24,19 @@ class PlaySongsModel with ChangeNotifier {
   Song get curSong => _songs[curIndex];
   Stream<String> get curPositionStream => _curPositionController.stream;
   PlayerState get curState => _curState;
+
+  void addAllSongToList(List<PlaySong.Song> songList, int index) {
+    _songs = [];
+    for (var element in songList) {
+      Song song = Song(
+          name: element.name!,
+          artists: element.ar![0].name!,
+          picUrl: element.al!.picUrl!,
+          id: element.id);
+      _songs.add(song);
+    }
+    playSongs(_songs, index: index);
+  }
 
   void init() {
     _audioPlayer.setReleaseMode(ReleaseMode.stop);
@@ -57,8 +72,14 @@ class PlaySongsModel with ChangeNotifier {
     if (_curState == PlayerState.playing) {
       _audioPlayer.stop();
     }
-    _songs.insert(curIndex, song);
+    // _songs.insert(curIndex, song);
     play();
+  }
+
+  void playSongByIndex(int index) {
+    Song song = _songs[index];
+    curIndex = index;
+    playSong(song);
   }
 
   // 播放很多歌
@@ -111,7 +132,8 @@ class PlaySongsModel with ChangeNotifier {
 
   /// 下一首
   void nextPlay() {
-    if (curIndex >= _songs.length) {
+    ///当前和长度-1相等时，就是最后一首了
+    if (curIndex >= _songs.length - 1) {
       curIndex = 0;
     } else {
       curIndex++;

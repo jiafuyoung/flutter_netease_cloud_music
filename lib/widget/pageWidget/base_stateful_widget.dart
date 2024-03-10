@@ -84,9 +84,6 @@ abstract class BaseStatefulWidget<T extends BaseController>
   ///是否展示titleBar标题栏
   bool showDrawer() => false;
 
-  ///页面标题设置
-  String titleString() => "首页";
-
   //标题栏title的通用Widget样式
   Widget? titleWidget() => null;
 

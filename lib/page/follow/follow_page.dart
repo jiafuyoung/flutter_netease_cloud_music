@@ -13,18 +13,25 @@ class FollowPage extends BaseStatefulWidget<FollowController> {
 
   @override
   Widget buildContent(BuildContext context) {
-    return SizedBox(
-      child: Column(
-        children: [
-          const Text("关注tap页面"),
-          ElevatedButton(
-              onPressed: () async {
-                UserPreferences().deleteUserInfo();
-              },
-              child: const Text("清除个人信息"))
-        ],
+    return ConstrainedBox(
+      constraints: const BoxConstraints.expand(), // 自适应屏幕
+      child: Image.asset(
+        "images/shitou.jpg",
+        fit: BoxFit.cover,
       ),
     );
+    // return SizedBox(
+    //   child: Column(
+    //     children: [
+    //       const Text("关注tap页面"),
+    //       ElevatedButton(
+    //           onPressed: () async {
+    //             UserPreferences().deleteUserInfo();
+    //           },
+    //           child: const Text("清除个人信息"))
+    //     ],
+    //   ),
+    // );
   }
 
   @override

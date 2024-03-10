@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:netease_cloud_music_flutter/component/find_component.dart';
+import 'package:netease_cloud_music_flutter/component/find_page_component.dart';
 import '../controller/base_controller.dart';
 import '../res/colors.dart';
 import '../res/style.dart';
